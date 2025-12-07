@@ -1,6 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
   const {
@@ -15,13 +16,16 @@ const Register = () => {
     console.log("form Data:", data);
   };
   return (
-    <div className="flex gap-4 h-screen bg-white ">
+    <div className="flex gap-4 h-screen bg-blue-50 ">
       {/* form  */}
       <div className="flex-1 border flex justify-center items-center ">
-        <div className="shadow-xl bg-gray-50 mx-auto max-w-md p-5 ">
-          <h1 className="text-3xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent ">
-            Register Here
-          </h1>
+        <div className="shadow-xl bg-gray-50 mx-auto w-full max-w-md p-8 rounded-lg ">
+          <div className="mb-5">
+            <p>Welcome to</p>
+            <h1 className="text-4xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent ">
+              Prize Arena
+            </h1>
+          </div>
 
           <form onSubmit={handleSubmit(handleUserRegister)}>
             <fieldset className="space-y-2">
@@ -33,7 +37,7 @@ const Register = () => {
                 <input
                   type="text"
                   {...register("name", { required: true })}
-                  className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70"
+                  className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70 rounded-sm"
                   placeholder="Enter Your Name"
                 />
                 {errors.name?.type === "required" && (
@@ -49,7 +53,7 @@ const Register = () => {
                 <input
                   type="file"
                   {...register("photoURL")}
-                  className=" outline-0 w-full  p-2 border border-gray-300 "
+                  className="file-input outline-0 w-full  border border-gray-300  rounded-sm"
                 />
               </div>
 
@@ -61,7 +65,7 @@ const Register = () => {
                 <input
                   type="email"
                   {...register("email", { required: true })}
-                  className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70"
+                  className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70 rounded-sm"
                   placeholder="Enter Your Email"
                 />
                 {errors.email?.type === "required" && (
@@ -78,7 +82,7 @@ const Register = () => {
                   <input
                     type={`${showPassword ? "text" : "password"}`}
                     {...register("password", { required: true })}
-                    className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70"
+                    className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70 rounded-sm"
                     placeholder="Enter Your Password"
                   />
                   <button
@@ -98,15 +102,22 @@ const Register = () => {
                 <input
                   type="submit"
                   value="Register Now"
-                  className="w-full bg-linear-to-r from-primary to-secondary text-white py-2 mt-3 hover:opacity-90"
+                  className="w-full bg-linear-to-r from-primary to-secondary text-white py-2 mt-3 hover:opacity-90 rounded-sm"
                 />
               </div>
             </fieldset>
           </form>
+          {/* or operator */}
+          <div className="flex items-center gap-4 my-5">
+            <hr className="grow border-gray-300" />
+            <p className="text-gray-800">OR</p>
+            <hr className="grow border-gray-300" />
+          </div>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
       {/* img */}
-      <div className="flex-1 border bg-green-500">
+      <div className="flex-1 border bg-green-500 hidden lg:flex">
         <h1>Image text </h1>
       </div>
     </div>
