@@ -27,12 +27,15 @@ const NavBar = () => {
       <li>
         <NavLink to="/details">Details</NavLink>
       </li>
+      <li>
+        <NavLink to="/be_a_creator">Be a Creator</NavLink>
+      </li>
     </>
   );
   return (
     <div
       className={` px-2  md:px-0  ${
-        darkMode ? " bg-black text-white" : "bg-secondary "
+        darkMode ? " bg-black text-white" : "bg-white "
       }`}
     >
       <div className="max-w-[1440px] mx-auto flex justify-between items-center py-5">
@@ -56,7 +59,7 @@ const NavBar = () => {
         {/* center part  */}
         <div className="hidden lg:flex">
           <nav>
-            <ul className="flex gap-5 font-semibold text-white">{links}</ul>
+            <ul className="flex gap-5 font-semibold">{links}</ul>
           </nav>
         </div>
 
@@ -64,12 +67,15 @@ const NavBar = () => {
         <div className="">
           {user ? (
             <div className="flex items-center gap-3">
+              {/* <button className="bg-linear-to-r from-primary to-secondary px-3 py-1 rounded-sm text-white">
+                Create a Contest
+              </button> */}
               {/* dark light  when logout */}
               <div>
                 <button
                   onClick={toggleDarkMode}
                   className={` mr-2 ${
-                    darkMode ? "bg-black text-white" : "text-white"
+                    darkMode ? "bg-black text-white" : "text-black"
                   }`}
                 >
                   {darkMode ? <Sun></Sun> : <Moon></Moon>}

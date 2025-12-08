@@ -8,14 +8,13 @@ import Loder from "../components/Loder/Loder";
 const MainLayout = () => {
   const { loading } = useAuth();
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       {loading ? (
         <Loder />
       ) : (
         <>
-          {" "}
           <Header />
-          <div>
+          <div className="flex-1">
             <Outlet />
           </div>
           <Footer />

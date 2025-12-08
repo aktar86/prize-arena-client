@@ -4,7 +4,7 @@ import "./Loader.css";
 const Loder = () => {
   return (
     <div className="h-screen flex justify-center items-center">
-      <span class="loader"></span>
+      <span className="loader"></span>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
 import PrivetRoute from "../privetRoute/PrivetRoute";
 import Details from "../pages/Details/Details";
+import BecomeACreator from "../pages/BecomeACreator/BecomeACreator";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <Details></Details>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "be_a_creator",
+        element: (
+          <PrivetRoute>
+            <BecomeACreator></BecomeACreator>
           </PrivetRoute>
         ),
       },
