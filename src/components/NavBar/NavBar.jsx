@@ -7,12 +7,12 @@ import useAuth from "../../hooks/useAuth";
 import Logo from "../Logo/Logo";
 
 const NavBar = () => {
-  const { user, signOutUser, darkMode, toggleDarkMode } = useAuth();
+  const { user, logOut, darkMode, toggleDarkMode } = useAuth();
   const [open, setOpen] = useState(false);
   const { location } = useLocation();
 
   const handleSignOutUser = () => {
-    signOutUser()
+    logOut()
       .then(() => {})
       .catch((err) => {
         console.log(err.message);
@@ -24,12 +24,15 @@ const NavBar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+      <li>
+        <NavLink to="/details">Details</NavLink>
+      </li>
     </>
   );
   return (
     <div
       className={` px-2  md:px-0  ${
-        darkMode ? " bg-gray-800 text-white" : "bg-secondary "
+        darkMode ? " bg-black text-white" : "bg-secondary "
       }`}
     >
       <div className="max-w-[1440px] mx-auto flex justify-between items-center py-5">
@@ -53,55 +56,68 @@ const NavBar = () => {
         {/* center part  */}
         <div className="hidden lg:flex">
           <nav>
-            <ul className="flex gap-5 font-semibold">{links}</ul>
+            <ul className="flex gap-5 font-semibold text-white">{links}</ul>
           </nav>
         </div>
 
         {/* end part  */}
         <div className="">
           {user ? (
-            <div className="dropdown dropdown-end">
-              <div className="relative">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle avatar"
+            <div className="flex items-center gap-3">
+              {/* dark light  when logout */}
+              <div>
+                <button
+                  onClick={toggleDarkMode}
+                  className={` mr-2 ${
+                    darkMode ? "bg-black text-white" : "text-white"
+                  }`}
                 >
-                  <div className="w-10 rounded-full ring-2 ring-[#FF385C] ring-offset-2 ring-offset-base-100">
-                    <img
-                      src={user?.photoURL}
-                      alt={user.displayName}
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                </div>
-                {/* Green dot for active user
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div> */}
+                  {darkMode ? <Sun></Sun> : <Moon></Moon>}
+                </button>
               </div>
-
-              <ul
-                tabIndex={0}
-                className="mt-3 z-[99999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-              >
-                <li className="px-4 py-2 text-sm font-semibold">
-                  {user.displayName}
-                </li>
-                <li className="px-4 py-2 text-xs text-gray-500">
-                  {user.email}
-                </li>
-                <li className=" mt-2 pt-2">
-                  <button
-                    onClick={handleSignOutUser}
-                    className="btn btn-sm bg-[#FF385C] w-full text-white"
+              <div className="dropdown dropdown-end">
+                <div className="relative">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
                   >
-                    Log out
-                  </button>
-                </li>
-              </ul>
+                    <div className="w-10 rounded-full ring-2 ring-[#FF385C] ring-offset-2 ring-offset-base-100">
+                      <img
+                        src={user?.photoURL}
+                        alt={user.displayName}
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  </div>
+                  {/* Green dot for active user
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div> */}
+                </div>
+
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[99999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li className="px-4 py-2 text-sm font-semibold">
+                    {user.displayName}
+                  </li>
+                  <li className="px-4 py-2 text-xs text-gray-500">
+                    {user.email}
+                  </li>
+                  <li className=" mt-2 pt-2">
+                    <button
+                      onClick={handleSignOutUser}
+                      className="btn btn-sm bg-[#FF385C] w-full text-white"
+                    >
+                      Log out
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           ) : (
             <div className="flex gap-2">
-              {/* dark light  */}
+              {/* dark light  when logout */}
               <div>
                 <button
                   onClick={toggleDarkMode}

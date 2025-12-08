@@ -8,7 +8,7 @@
 
 @plugin "daisyui/theme" {
   themes: light --default;
-  --color-primary: #fc466b; /* Fallback from your gradient start */
+  --color-primary: #fc466b;
   --color-secondary: #3f5efb;
 }
 
