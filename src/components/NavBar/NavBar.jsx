@@ -88,7 +88,7 @@ const NavBar = () => {
                     role="button"
                     className="btn btn-ghost btn-circle avatar"
                   >
-                    <div className="w-10 rounded-full ring-2 ring-[#FF385C] ring-offset-2 ring-offset-base-100">
+                    <div className="w-10 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
                       <img
                         src={user?.photoURL}
                         alt={user.displayName}
@@ -102,18 +102,21 @@ const NavBar = () => {
 
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[99999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className={` ${
+                    darkMode ? "bg-gray-800" : "bg-white"
+                  } mt-3 z-[99999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52`}
                 >
-                  <li className="px-4 py-2 text-sm font-semibold">
+                  <li className="px-2 py-2 text-sm font-semibold">
                     {user.displayName}
                   </li>
-                  <li className="px-4 py-2 text-xs text-gray-500">
-                    {user.email}
+                  <li className="px-2 py-2 text-xs">{user.email}</li>
+                  <li className="py-2 text-xs">
+                    <NavLink to="/dashboard">Dashboard</NavLink>
                   </li>
-                  <li className=" mt-2 pt-2">
+                  <li className=" mt-1 pt-2">
                     <button
                       onClick={handleSignOutUser}
-                      className="btn btn-sm bg-[#FF385C] w-full text-white"
+                      className="w-full bg-linear-to-r from-primary to-secondary text-white flex justify-center items-center py-2 rounded"
                     >
                       Log out
                     </button>

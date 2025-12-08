@@ -7,6 +7,7 @@ import Register from "../Auth/Register/Register";
 import PrivetRoute from "../privetRoute/PrivetRoute";
 import Details from "../pages/Details/Details";
 import BecomeACreator from "../pages/BecomeACreator/BecomeACreator";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         Component: Register,
       },
     ],
+  },
+  {
+    path: "dashboard",
+    Component: Dashboard,
   },
 ]);
 
