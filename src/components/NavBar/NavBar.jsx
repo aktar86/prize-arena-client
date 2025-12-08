@@ -1,15 +1,15 @@
 import { Menu, Moon, Sun, X } from "lucide-react";
-import React, { use, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router";
+import React, { useState } from "react";
+import { Link, NavLink, useLocation } from "react-router";
 import "./NavBar.css";
 
 import useAuth from "../../hooks/useAuth";
+import Logo from "../Logo/Logo";
 
 const NavBar = () => {
   const { user, signOutUser, darkMode, toggleDarkMode } = useAuth();
   const [open, setOpen] = useState(false);
   const { location } = useLocation();
-  const navigate = useNavigate();
 
   const handleSignOutUser = () => {
     signOutUser()
@@ -29,7 +29,7 @@ const NavBar = () => {
   return (
     <div
       className={` px-2  md:px-0  ${
-        darkMode ? " bg-gray-800 text-white" : "bg-white "
+        darkMode ? " bg-gray-800 text-white" : "bg-secondary "
       }`}
     >
       <div className="max-w-[1440px] mx-auto flex justify-between items-center py-5">
@@ -45,14 +45,8 @@ const NavBar = () => {
               {links}
             </ul>
           </span>
-          <span className="ml-2">
-            <h1
-              onClick={() => navigate("/")}
-              className="font-bold text-3xl cursor-pointer"
-            >
-              Home
-              <span className="text-[#FF385C]">Nest</span>
-            </h1>
+          <span className="">
+            <Logo></Logo>
           </span>
         </div>
 
@@ -63,17 +57,8 @@ const NavBar = () => {
           </nav>
         </div>
 
-        {/* dark light  */}
-        <div>
-          <button
-            onClick={toggleDarkMode}
-            className={` ${darkMode ? "bg-gray-800 text-white" : "bg-white"}`}
-          >
-            {darkMode ? <Sun></Sun> : <Moon></Moon>}
-          </button>
-        </div>
         {/* end part  */}
-        <div className="px-2">
+        <div className="">
           {user ? (
             <div className="dropdown dropdown-end">
               <div className="relative">
@@ -116,27 +101,34 @@ const NavBar = () => {
             </div>
           ) : (
             <div className="flex gap-2">
+              {/* dark light  */}
+              <div>
+                <button
+                  onClick={toggleDarkMode}
+                  className={` mr-2 ${
+                    darkMode ? "bg-gray-800 text-white" : "text-white"
+                  }`}
+                >
+                  {darkMode ? <Sun></Sun> : <Moon></Moon>}
+                </button>
+              </div>
               <Link
                 to="/register"
-                className={`w-32 px-5 rounded-sm text-center py-2 ${
-                  location === "/register"
-                    ? "text-white bg-linear-to-r from-[#FF385C] to-[#FF385C]"
-                    : "text-[#FF385C] border-2 border-[#FF385C]"
+                className={`${
+                  location === "/register" ? "text-primary" : "text-white"
                 }`}
               >
                 Register
               </Link>
-
-              <Link
+              {/* <span className="text-white">/</span> */}
+              {/* <Link
                 to="/login"
-                className={`w-32 px-5 rounded-sm text-center py-2 ml-2 ${
-                  location === "/login"
-                    ? "text-white bg-linear-to-r from-[#FF385C] to-[#FF385C]"
-                    : "text-[#FF385C] border-2 border-[#FF385C]"
+                className={`${
+                  location === "/login" ? "text-primary" : "text-white"
                 }`}
               >
                 Login
-              </Link>
+              </Link> */}
             </div>
           )}
         </div>

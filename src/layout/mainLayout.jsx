@@ -6,9 +6,13 @@ import Footer from "../components/Footer/Footer";
 const mainLayout = () => {
   return (
     <div>
-      <Header></Header>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      <Header />
+
+      <div>
+        <Outlet />
+      </div>
+
+      <Footer />
     </div>
   );
 };

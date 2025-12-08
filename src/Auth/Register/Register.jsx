@@ -2,6 +2,7 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { Link } from "react-router";
 
 const Register = () => {
   const {
@@ -25,6 +26,12 @@ const Register = () => {
             <h1 className="text-4xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent ">
               Prize Arena
             </h1>
+            <p>
+              Have an account? please,{" "}
+              <Link to="/login" className="text-blue-500 underline">
+                Login
+              </Link>
+            </p>
           </div>
 
           <form onSubmit={handleSubmit(handleUserRegister)}>
