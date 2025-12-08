@@ -10,7 +10,6 @@
   themes: light --default;
   --color-primary: #fc466b; /* Fallback from your gradient start */
   --color-secondary: #3f5efb;
-  --color-redex: #ff2800;
 }
 
 body {
