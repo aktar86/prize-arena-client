@@ -111,7 +111,9 @@ const NavBar = () => {
                   </li>
                   <li className="px-2 py-2 text-xs">{user.email}</li>
                   <li className="py-2 text-xs">
-                    <NavLink to="/dashboard">Dashboard</NavLink>
+                    <NavLink to="/dashboard/approve-creators">
+                      Dashboard
+                    </NavLink>
                   </li>
                   <li className=" mt-1 pt-2">
                     <button

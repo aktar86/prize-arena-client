@@ -71,6 +71,7 @@ const ApproveCreators = () => {
               <th>SL</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Created Date</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -81,6 +82,7 @@ const ApproveCreators = () => {
                 <th>{index + 1}</th>
                 <td>{creator.creatorName}</td>
                 <td>{creator.creatorEmail}</td>
+                <td>{creator.createAt}</td>
                 <td
                   className={`${
                     creator.status === "approved"

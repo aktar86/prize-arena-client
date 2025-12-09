@@ -5,10 +5,12 @@ import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const BecomeACreator = () => {
   const { user, darkMode } = useAuth();
   const axiosSecure = useAxios();
+  const navigate = useNavigate();
   console.log(user);
   const {
     register,
@@ -23,7 +25,10 @@ const BecomeACreator = () => {
       .post("/creators", data)
       .then((res) => {
         if (res.data.insertedId) {
-          toast.success("Registration submitted! Wait for admin approval.");
+          toast.success("Registration submitted! Wait for admin approval.", {
+            onClose: () => navigate("/dashboard/approve-creators"),
+            autoClose: 2000, // 2 sec
+          });
         }
       })
       .catch((err) => {

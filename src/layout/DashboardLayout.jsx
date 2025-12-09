@@ -1,7 +1,7 @@
 import { Home, ListCollapse, Settings, Trophy, UserPlus } from "lucide-react";
 import React from "react";
 import { FaToggleOn } from "react-icons/fa";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
   return (
@@ -35,14 +35,16 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
-              >
-                {/* Home icon */}
-                <Home />
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </button>
+              <Link to="/">
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Homepage"
+                >
+                  {/* Home icon */}
+                  <Home />
+                  <span className="is-drawer-close:hidden">Homepage</span>
+                </button>
+              </Link>
             </li>
             {/* my contest */}
             <li>
