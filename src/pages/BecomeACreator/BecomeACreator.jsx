@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const BecomeACreator = () => {
   const { user, darkMode } = useAuth();
@@ -17,11 +18,20 @@ const BecomeACreator = () => {
 
   const registerCreator = (data) => {
     console.log("register creator:", data);
-    axiosSecure.post("/creators", data).then((res) => {
-      if (res.data.insertedId) {
-        toast.success("Registration submitted! Wait for admin approval.");
-      }
-    });
+
+    axiosSecure
+      .post("/creators", data)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Registration submitted! Wait for admin approval.");
+        }
+      })
+      .catch((err) => {
+        console.log("ERROR RESPONSE:", err.response?.data);
+
+        const msg = err.response?.data?.message || "Something went wrong";
+        toast.error(msg);
+      });
   };
   return (
     <div
@@ -63,7 +73,7 @@ const BecomeACreator = () => {
               <input
                 type="email"
                 defaultValue={user?.email}
-                readOnly
+                {...register("creatorEmail", { required: true })}
                 className="border border-gray-400 w-full p-2 rounded-sm outline-0 focus:ring-2 focus:ring-primary/60"
               />
               {errors.creatorEmail?.type === "required" && (
@@ -75,8 +85,7 @@ const BecomeACreator = () => {
             <div>
               <label className="block">Reasons why want to be a creator </label>
               <textarea
-                name=""
-                id=""
+                {...register("creatorDescription")}
                 rows={4} // height: 4 lines
                 cols={50} // optional, can omit if using w-full
                 className="border border-gray-400 w-full p-2 rounded-sm outline-0 focus:ring-2 focus:ring-primary/60"

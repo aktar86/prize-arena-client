@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "be_a_creator",
+        path: "be-a-creator",
         element: (
           <PrivetRoute>
             <BecomeACreator></BecomeACreator>
