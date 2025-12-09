@@ -35,7 +35,7 @@ const NavBar = () => {
   return (
     <div
       className={` px-2  md:px-0  ${
-        darkMode ? " bg-black text-white" : "bg-white "
+        darkMode ? " bg-black text-white" : "bg-secondary/10 "
       }`}
     >
       <div className="max-w-[1440px] mx-auto flex justify-between items-center py-5">

@@ -1,4 +1,4 @@
-import { Home, ListCollapse, Settings } from "lucide-react";
+import { Home, ListCollapse, Settings, Trophy, UserPlus } from "lucide-react";
 import React from "react";
 import { FaToggleOn } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router";
@@ -44,7 +44,6 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Homepage</span>
               </button>
             </li>
-
             {/* my contest */}
             <li>
               <NavLink
@@ -53,11 +52,23 @@ const DashboardLayout = () => {
                 data-tip="My Contest"
               >
                 {/* icon */}
-
+                <Trophy />
                 <span className="is-drawer-close:hidden">My Contest</span>
               </NavLink>
             </li>
 
+            {/* approve-creators */}
+            <li>
+              <NavLink
+                to="/dashboard/approve-creators"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Approve Creators"
+              >
+                {/* icon */}
+                <UserPlus />
+                <span className="is-drawer-close:hidden">Approve Creators</span>
+              </NavLink>
+            </li>
             {/* List item */}
             <li>
               <button

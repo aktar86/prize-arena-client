@@ -5,10 +5,13 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxios();
   const {
     register,
     handleSubmit,
@@ -37,6 +40,19 @@ const Register = () => {
         axios.post(image_API_URL, formData).then((res) => {
           const photoURL = res.data.data.display_url;
 
+          //store userinfo in database
+          const userInfo = {
+            email: email,
+            displayName: data.name,
+            photoURL: photoURL,
+          };
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user created in the data base");
+            }
+          });
+
+          //update user profile
           const userProfile = {
             displayName: data.name,
             photoURL: photoURL,
@@ -50,6 +66,14 @@ const Register = () => {
             .catch((error) => {
               console.log(error.message);
             });
+
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Registration Successfully",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         });
       })
       .catch((error) => {

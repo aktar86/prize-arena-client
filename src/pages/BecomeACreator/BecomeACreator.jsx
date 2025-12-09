@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const BecomeACreator = () => {
   const { user, darkMode } = useAuth();
+  const axiosSecure = useAxios();
   console.log(user);
   const {
     register,
@@ -13,6 +17,11 @@ const BecomeACreator = () => {
 
   const registerCreator = (data) => {
     console.log("register creator:", data);
+    axiosSecure.post("/creators", data).then((res) => {
+      if (res.data.insertedId) {
+        toast.success("Registration submitted! Wait for admin approval.");
+      }
+    });
   };
   return (
     <div

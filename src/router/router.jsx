@@ -9,6 +9,7 @@ import Details from "../pages/Details/Details";
 import BecomeACreator from "../pages/BecomeACreator/BecomeACreator";
 import DashboardLayout from "../layout/DashboardLayout";
 import MyContest from "../pages/Dashboard/MyContest/MyContest";
+import ApproveCreators from "../pages/Dashboard/ApproveCreator/ApproveCreators";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "my-contest",
         Component: MyContest,
+      },
+      {
+        path: "approve-creators",
+        Component: ApproveCreators,
       },
     ],
   },
