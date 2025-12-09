@@ -7,7 +7,8 @@ import Register from "../Auth/Register/Register";
 import PrivetRoute from "../privetRoute/PrivetRoute";
 import Details from "../pages/Details/Details";
 import BecomeACreator from "../pages/BecomeACreator/BecomeACreator";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import DashboardLayout from "../layout/DashboardLayout";
+import MyContest from "../pages/Dashboard/MyContest/MyContest";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,17 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    Component: Dashboard,
+    element: (
+      <PrivetRoute>
+        <DashboardLayout />
+      </PrivetRoute>
+    ),
+    children: [
+      {
+        path: "my-contest",
+        Component: MyContest,
+      },
+    ],
   },
 ]);
 

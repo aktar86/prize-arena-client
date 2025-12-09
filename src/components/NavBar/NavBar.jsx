@@ -130,9 +130,7 @@ const NavBar = () => {
               <div>
                 <button
                   onClick={toggleDarkMode}
-                  className={` mr-2 ${
-                    darkMode ? "bg-gray-800 text-white" : "text-white"
-                  }`}
+                  className={` mr-2 ${darkMode ? " text-white" : "text-black"}`}
                 >
                   {darkMode ? <Sun></Sun> : <Moon></Moon>}
                 </button>
@@ -140,7 +138,7 @@ const NavBar = () => {
               <Link
                 to="/register"
                 className={`${
-                  location === "/register" ? "text-primary" : "text-white"
+                  location === "/register" ? "text-primary" : "text-primary"
                 }`}
               >
                 Register

@@ -2,9 +2,13 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
+  const { registerUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,7 +18,43 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleUserRegister = (data) => {
-    console.log("form Data:", data);
+    const email = data.email;
+    const password = data.password;
+    const profileImage = data.photoURL[0];
+
+    registerUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+
+        //store the image and get the photo url
+        const formData = new FormData();
+        formData.append("image", profileImage);
+
+        const image_API_URL = `https://api.imgbb.com/1/upload?expiration=600&key=${
+          import.meta.env.VITE_IMAGE_HOST
+        }`;
+
+        axios.post(image_API_URL, formData).then((res) => {
+          const photoURL = res.data.data.display_url;
+
+          const userProfile = {
+            displayName: data.name,
+            photoURL: photoURL,
+          };
+
+          //update user profile
+          updateUserProfile(userProfile)
+            .then(() => {
+              navigate(location?.state || "/");
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   return (
     <div className="flex gap-4 h-screen bg-blue-50 ">
