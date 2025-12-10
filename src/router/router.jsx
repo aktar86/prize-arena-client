@@ -10,6 +10,7 @@ import BecomeACreator from "../pages/BecomeACreator/BecomeACreator";
 import DashboardLayout from "../layout/DashboardLayout";
 import MyContest from "../pages/Dashboard/MyContest/MyContest";
 import ApproveCreators from "../pages/Dashboard/ApproveCreator/ApproveCreators";
+import AddContest from "../pages/Dashboard/CreatorDashboard/AddContest/AddContest";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       </PrivetRoute>
     ),
     children: [
+      {
+        path: "add-contest",
+        Component: AddContest,
+      },
       {
         path: "my-contest",
         Component: MyContest,

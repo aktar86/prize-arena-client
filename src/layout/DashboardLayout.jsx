@@ -1,4 +1,11 @@
-import { Home, ListCollapse, Settings, Trophy, UserPlus } from "lucide-react";
+import {
+  Home,
+  ListCollapse,
+  Settings,
+  Sparkles,
+  Trophy,
+  UserPlus,
+} from "lucide-react";
 import React from "react";
 import { FaToggleOn } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
@@ -18,7 +25,9 @@ const DashboardLayout = () => {
             {/* Sidebar toggle icon */}
             <ListCollapse />
           </label>
-          <div className="px-4">Navbar Title</div>
+          <div className="px-4 text-2xl font-bold">
+            Prize<span className="text-primary">Arena</span>
+          </div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -46,7 +55,8 @@ const DashboardLayout = () => {
                 </button>
               </Link>
             </li>
-            {/* my contest */}
+
+            {/*  creator route my contest */}
             <li>
               <NavLink
                 to="/dashboard/my-contest"
@@ -58,8 +68,20 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">My Contest</span>
               </NavLink>
             </li>
+            {/* add contest page */}
+            <li>
+              <NavLink
+                to="/dashboard/add-contest"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Contest"
+              >
+                {/* icon */}
+                <Sparkles />
+                <span className="is-drawer-close:hidden">Add Contest</span>
+              </NavLink>
+            </li>
 
-            {/* approve-creators */}
+            {/*  admin route approve-creators  */}
             <li>
               <NavLink
                 to="/dashboard/approve-creators"
@@ -71,6 +93,7 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Approve Creators</span>
               </NavLink>
             </li>
+
             {/* List item */}
             <li>
               <button

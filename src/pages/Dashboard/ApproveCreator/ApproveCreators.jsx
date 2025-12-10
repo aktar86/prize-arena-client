@@ -4,11 +4,11 @@ import useAxios from "../../../hooks/useAxios";
 import { FaTrash, FaUserCheck } from "react-icons/fa";
 import { HiUserRemove } from "react-icons/hi";
 import Swal from "sweetalert2";
-import useAuth from "../../../hooks/useAuth";
+// import useAuth from "../../../hooks/useAuth";
 
 const ApproveCreators = () => {
   const axiosSecure = useAxios();
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const { refetch, data: creators = [] } = useQuery({
     queryKey: ["creators", "pending"],

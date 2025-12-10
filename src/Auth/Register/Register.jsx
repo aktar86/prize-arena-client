@@ -26,7 +26,7 @@ const Register = () => {
     const profileImage = data.photoURL[0];
 
     registerUser(email, password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
 
         //store the image and get the photo url
@@ -49,6 +49,13 @@ const Register = () => {
           axiosSecure.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               console.log("user created in the data base");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Registration Successfully",
+                showConfirmButton: false,
+                timer: 2000,
+              });
             }
           });
 
@@ -66,14 +73,6 @@ const Register = () => {
             .catch((error) => {
               console.log(error.message);
             });
-
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Registration Successfully",
-            showConfirmButton: false,
-            timer: 2000,
-          });
         });
       })
       .catch((error) => {
