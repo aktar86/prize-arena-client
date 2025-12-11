@@ -3,6 +3,7 @@ import React from "react";
 import useAxios from "../../../../hooks/useAxios";
 import { FaCheckCircle, FaTimesCircle, FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 // admin route
 const ContestManagement = () => {
@@ -15,20 +16,31 @@ const ContestManagement = () => {
     },
   });
 
-  const handleApproveContest = (id) => {
-    console.log(id._id);
-    const updateStatus = { status: "approved" };
+  const updateContest = (id, status, titleText) => {
+    const updateStatus = { status: status };
 
     axiosSecure.patch(`/contests/${id._id}`, updateStatus).then((res) => {
       console.log(res.data);
 
       if (res.data.modifiedCount) {
         refetch();
-        toast.success("Contest Approved Successfully", {
-          autoClose: 2000,
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: titleText,
+          showConfirmButton: true,
+          timer: 2000,
         });
       }
     });
+  };
+
+  const handleApproveContest = (id) => {
+    updateContest(id, "Confirm", "Contest Approved Successfully");
+  };
+
+  const handleRemoveContest = (id) => {
+    updateContest(id, "Reject", "Contest Rejected Successfully");
   };
 
   return (
@@ -55,8 +67,10 @@ const ContestManagement = () => {
                 <td>{contest.contestCategory}</td>
                 <td
                   className={`${
-                    contest.status === "approved"
+                    contest.status === "Confirm"
                       ? "text-green-500"
+                      : contest.status === "Reject"
+                      ? "text-red-500"
                       : "text-amber-500"
                   }`}
                 >
@@ -70,7 +84,10 @@ const ContestManagement = () => {
                   >
                     <FaCheckCircle />
                   </button>
-                  <button className="btn btn-squire md:mx-2 bg-rose-500 text-white">
+                  <button
+                    onClick={() => handleRemoveContest(contest)}
+                    className="btn btn-squire md:mx-2 bg-rose-500 text-white"
+                  >
                     <FaTimesCircle />
                   </button>
                   <button className="btn btn-squire bg-amber-500 text-white">
