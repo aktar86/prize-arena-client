@@ -52,8 +52,10 @@ const DashboardLayout = () => {
                   data-tip="Homepage"
                 >
                   {/* Home icon */}
-                  <Home />
-                  <span className="is-drawer-close:hidden">Homepage</span>
+                  <span className="flex gap-2 items-center">
+                    <Home />
+                    <span className="is-drawer-close:hidden">Homepage</span>
+                  </span>
                 </button>
               </Link>
             </li>
@@ -105,6 +107,21 @@ const DashboardLayout = () => {
                 {/* icon */}
                 <Users />
                 <span className="is-drawer-close:hidden">User Management</span>
+              </NavLink>
+            </li>
+
+            {/* User Management */}
+            <li>
+              <NavLink
+                to="/dashboard/contest-management"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Contest Management"
+              >
+                {/* icon */}
+                <Users />
+                <span className="is-drawer-close:hidden">
+                  Contest Management
+                </span>
               </NavLink>
             </li>
 

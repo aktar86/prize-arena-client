@@ -12,6 +12,7 @@ import MyContest from "../pages/Dashboard/MyContest/MyContest";
 import ApproveCreators from "../pages/Dashboard/ApproveCreator/ApproveCreators";
 import AddContest from "../pages/Dashboard/CreatorDashboard/AddContest/AddContest";
 import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/UserManagement";
+import ContestManagement from "../pages/Dashboard/AdminDashboard/ContestManagement/ContestManagement";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "user-management",
         Component: UserManagement,
+      },
+      {
+        path: "contest-management",
+        Component: ContestManagement,
       },
     ],
   },

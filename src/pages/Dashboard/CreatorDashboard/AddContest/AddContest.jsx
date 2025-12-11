@@ -53,7 +53,7 @@ const AddContest = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Contest Added Successfully",
+            title: "Contest Added Successfully. Please, wait for admin apprval",
             showConfirmButton: true,
             timer: 2000,
           });
@@ -140,10 +140,10 @@ const AddContest = () => {
               <legend className="font-semibold">Task Instruction</legend>
               <textarea
                 type="text"
-                {...register("contestDescription", { required: true })}
+                {...register("contestTaskInstruction", { required: true })}
                 className="border border-gray-300 w-full p-2 focus:ring-2  rounded-sm focus:ring-indigo-400 focus:outline-0"
               />
-              {errors.contestDescription?.type === "required" && (
+              {errors.contestTaskInstruction?.type === "required" && (
                 <p className="text-red-500">Contest Instruction is required</p>
               )}
             </div>
