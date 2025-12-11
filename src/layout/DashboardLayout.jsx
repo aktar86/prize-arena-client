@@ -110,7 +110,7 @@ const DashboardLayout = () => {
               </NavLink>
             </li>
 
-            {/* User Management */}
+            {/* Contest Management */}
             <li>
               <NavLink
                 to="/dashboard/contest-management"
@@ -118,7 +118,7 @@ const DashboardLayout = () => {
                 data-tip="Contest Management"
               >
                 {/* icon */}
-                <Users />
+                <Trophy />
                 <span className="is-drawer-close:hidden">
                   Contest Management
                 </span>

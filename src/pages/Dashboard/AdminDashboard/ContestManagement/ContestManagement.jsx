@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxios from "../../../../hooks/useAxios";
 import { FaCheckCircle, FaTimesCircle, FaTrashAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 // admin route
 const ContestManagement = () => {
   const axiosSecure = useAxios();
-  const { data: contests = [] } = useQuery({
+  const { refetch, data: contests = [] } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/contests`);
@@ -17,6 +18,17 @@ const ContestManagement = () => {
   const handleApproveContest = (id) => {
     console.log(id._id);
     const updateStatus = { status: "approved" };
+
+    axiosSecure.patch(`/contests/${id._id}`, updateStatus).then((res) => {
+      console.log(res.data);
+
+      if (res.data.modifiedCount) {
+        refetch();
+        toast.success("Contest Approved Successfully", {
+          autoClose: 2000,
+        });
+      }
+    });
   };
 
   return (
@@ -25,7 +37,6 @@ const ContestManagement = () => {
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">
-          {/* head */}
           <thead>
             <tr>
               <th>SL</th>
@@ -42,7 +53,15 @@ const ContestManagement = () => {
                 <th>{index + 1}</th>
                 <td>{contest.contestTitle}</td>
                 <td>{contest.contestCategory}</td>
-                <td>{contest.status}</td>
+                <td
+                  className={`${
+                    contest.status === "approved"
+                      ? "text-green-500"
+                      : "text-amber-500"
+                  }`}
+                >
+                  {contest.status}
+                </td>
                 <td>{new Date(contest.creatAt).toLocaleDateString()}</td>
                 <td>
                   <button
