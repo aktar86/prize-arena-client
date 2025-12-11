@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxios from "../../../../hooks/useAxios";
 import axios from "axios";
 import Swal from "sweetalert2";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router";
 
 const AddContest = () => {
   const axiosSecure = useAxios();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
+
+  const [deadline, setDeadline] = useState(null);
 
   const categories = [
     "Logo Design",
@@ -42,10 +49,11 @@ const AddContest = () => {
 
       axiosSecure.post("/contests", updatedData).then((res) => {
         if (res.data.insertedId) {
+          navigate("/dashboard/my-contest");
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Registration Successfully",
+            title: "Contest Added Successfully",
             showConfirmButton: true,
             timer: 2000,
           });
@@ -155,6 +163,7 @@ const AddContest = () => {
                   <p className="text-red-500">Prize Money is required</p>
                 )}
               </div>
+
               {/* Entry Fee */}
               <div className="flex-1">
                 <legend className="font-semibold">Entry Fee </legend>
@@ -168,6 +177,28 @@ const AddContest = () => {
                   <p className="text-red-500">Entry Fee is required</p>
                 )}
               </div>
+            </div>
+
+            {/* deadline */}
+            <div className="w-full">
+              <legend>Deadline</legend>
+              <DatePicker
+                selected={deadline}
+                onChange={(data) => {
+                  setDeadline(data);
+                  setValue("contestDeadline", data, { shouldValidate: true });
+                }}
+                minDate={new Date()}
+                placeholderText="Select deadline"
+                className="border p-2 w-full rounded"
+                showTimeSelect // enable time selection
+                timeFormat="HH:mm" // 24-hour format, you can use "hh:mm aa" for 12-hour
+                timeIntervals={15} // step in minutes
+                dateFormat="dd/MM/yyyy HH:mm" // format date + time
+              />
+              {errors.contestDeadline && (
+                <p className="text-red-500">Deadline is required</p>
+              )}
             </div>
 
             {/* button */}
