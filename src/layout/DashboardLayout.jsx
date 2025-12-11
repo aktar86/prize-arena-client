@@ -4,7 +4,9 @@ import {
   Settings,
   Sparkles,
   Trophy,
+  UserCircle,
   UserPlus,
+  Users,
 } from "lucide-react";
 import React from "react";
 import { FaToggleOn } from "react-icons/fa";
@@ -91,6 +93,18 @@ const DashboardLayout = () => {
                 {/* icon */}
                 <UserPlus />
                 <span className="is-drawer-close:hidden">Approve Creators</span>
+              </NavLink>
+            </li>
+            {/* User Management */}
+            <li>
+              <NavLink
+                to="/dashboard/user-management"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="User Management"
+              >
+                {/* icon */}
+                <Users />
+                <span className="is-drawer-close:hidden">User Management</span>
               </NavLink>
             </li>
 

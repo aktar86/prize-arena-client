@@ -3,9 +3,11 @@ import GoogleIcon from "../../assets/google.png";
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
 
 const SocialLogin = () => {
   const { googleLogin } = useAuth();
+  const axiosSecure = useAxios();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,14 +15,27 @@ const SocialLogin = () => {
     googleLogin()
       .then((result) => {
         console.log(result.user);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Successfully Login",
-          showConfirmButton: false,
-          timer: 1500,
+
+        //database
+        const userInfo = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("data store in the user database", res.data);
+            navigate(location?.state || "/");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully Login",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
-        navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error.message);

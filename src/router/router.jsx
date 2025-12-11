@@ -11,6 +11,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import MyContest from "../pages/Dashboard/MyContest/MyContest";
 import ApproveCreators from "../pages/Dashboard/ApproveCreator/ApproveCreators";
 import AddContest from "../pages/Dashboard/CreatorDashboard/AddContest/AddContest";
+import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
       </PrivetRoute>
     ),
     children: [
+      // creator area
       {
         path: "add-contest",
         Component: AddContest,
@@ -69,9 +71,14 @@ const router = createBrowserRouter([
         path: "my-contest",
         Component: MyContest,
       },
+      // admin area
       {
         path: "approve-creators",
         Component: ApproveCreators,
+      },
+      {
+        path: "user-management",
+        Component: UserManagement,
       },
     ],
   },

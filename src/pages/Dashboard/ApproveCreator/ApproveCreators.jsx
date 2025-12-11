@@ -19,7 +19,7 @@ const ApproveCreators = () => {
   });
 
   const updateCreatorStatus = (creator, status) => {
-    const updateInfo = { status: status };
+    const updateInfo = { status: status, email: creator.creatorEmail };
 
     axiosSecure.patch(`/creators/${creator._id}`, updateInfo).then((res) => {
       if (res.data.modifiedCount) {
