@@ -63,7 +63,7 @@ const MyContest = () => {
                   contest.createAt
                 ).toLocaleTimeString()}`}</td>
                 <td>
-                  {contest.status === "pending" ? (
+                  {contest.status === "Pending" ? (
                     <>
                       <button className="btn btn-squire bg-blue-500 hover:bg-blue-600 text-white">
                         <MdEditSquare />

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxios from "../../hooks/useAxios";
+import ContestCard from "./ContestCard";
 
 const AllContest = () => {
   const axiosSecure = useAxios();
@@ -12,8 +13,14 @@ const AllContest = () => {
     },
   });
   return (
-    <div>
-      <h1>All Contest Page here : {contests.length}</h1>
+    <div className="w-full max-w-[1440px] mx-auto border">
+      <h1 className="text-4xl font-bold">All Contest : {contests.length}</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {contests.map((contest) => (
+          <ContestCard key={contest._id} contest={contest}></ContestCard>
+        ))}
+      </div>
     </div>
   );
 };
