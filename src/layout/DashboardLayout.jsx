@@ -1,4 +1,5 @@
 import {
+  CheckCircle,
   Home,
   ListCollapse,
   Settings,
@@ -82,6 +83,19 @@ const DashboardLayout = () => {
                 {/* icon */}
                 <Sparkles />
                 <span className="is-drawer-close:hidden">Add Contest</span>
+              </NavLink>
+            </li>
+
+            {/* Submited Task */}
+            <li>
+              <NavLink
+                to="/dashboard/submited-tasks"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Contest"
+              >
+                {/* icon */}
+                <CheckCircle />
+                <span className="is-drawer-close:hidden">Submited Tasks</span>
               </NavLink>
             </li>
 

@@ -13,6 +13,8 @@ import ApproveCreators from "../pages/Dashboard/ApproveCreator/ApproveCreators";
 import AddContest from "../pages/Dashboard/CreatorDashboard/AddContest/AddContest";
 import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/UserManagement";
 import ContestManagement from "../pages/Dashboard/AdminDashboard/ContestManagement/ContestManagement";
+import SubmitedTask from "../pages/Dashboard/CreatorDashboard/SubmitedTask/SubmitedTask";
+import AllContest from "../pages/AllContest/AllContest";
 
 const router = createBrowserRouter([
   {
@@ -24,10 +26,10 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "details",
+        path: "all-contests",
         element: (
           <PrivetRoute>
-            <Details></Details>
+            <AllContest></AllContest>
           </PrivetRoute>
         ),
       },
@@ -84,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "contest-management",
         Component: ContestManagement,
+      },
+      {
+        path: "submited-tasks",
+        Component: SubmitedTask,
       },
     ],
   },

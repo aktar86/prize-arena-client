@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxios from "../../../../hooks/useAxios";
 import { FaCheckCircle, FaTimesCircle, FaTrashAlt } from "react-icons/fa";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 // admin route
@@ -11,7 +10,7 @@ const ContestManagement = () => {
   const { refetch, data: contests = [] } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/contests`);
+      const res = await axiosSecure.get("/contests");
       return res.data;
     },
   });
@@ -35,12 +34,29 @@ const ContestManagement = () => {
     });
   };
 
-  const handleApproveContest = (id) => {
-    updateContest(id, "Confirm", "Contest Approved Successfully");
+  const handleApproveContest = (contest) => {
+    updateContest(contest, "Confirmed", "Contest Approved Successfully");
   };
 
-  const handleRemoveContest = (id) => {
-    updateContest(id, "Reject", "Contest Rejected Successfully");
+  const handleRemoveContest = (contest) => {
+    updateContest(contest, "Rejected", "Contest Rejected Successfully");
+  };
+
+  const handleContestDelete = (contest) => {
+    axiosSecure.delete(`/contests/${contest._id}`).then((res) => {
+      console.log(res.data);
+
+      if (res.data.deletedCount) {
+        refetch();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Contest deleted successfully",
+          showConfirmButton: true,
+          timer: 2000,
+        });
+      }
+    });
   };
 
   return (
@@ -67,16 +83,16 @@ const ContestManagement = () => {
                 <td>{contest.contestCategory}</td>
                 <td
                   className={`${
-                    contest.status === "Confirm"
+                    contest.status === "Confirmed"
                       ? "text-green-500"
-                      : contest.status === "Reject"
+                      : contest.status === "Rejected"
                       ? "text-red-500"
                       : "text-amber-500"
                   }`}
                 >
                   {contest.status}
                 </td>
-                <td>{new Date(contest.creatAt).toLocaleDateString()}</td>
+                <td>{new Date(contest.createAt).toLocaleDateString()}</td>
                 <td>
                   <button
                     onClick={() => handleApproveContest(contest)}
@@ -90,7 +106,10 @@ const ContestManagement = () => {
                   >
                     <FaTimesCircle />
                   </button>
-                  <button className="btn btn-squire bg-amber-500 text-white">
+                  <button
+                    onClick={() => handleContestDelete(contest)}
+                    className="btn btn-squire bg-amber-500 text-white"
+                  >
                     <FaTrashAlt />
                   </button>
                 </td>

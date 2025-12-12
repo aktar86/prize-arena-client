@@ -6,8 +6,10 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router";
+import useAuth from "../../../../hooks/useAuth";
 
 const AddContest = () => {
+  const { user } = useAuth();
   const axiosSecure = useAxios();
   const navigate = useNavigate();
   const {
@@ -43,6 +45,8 @@ const AddContest = () => {
       const updatedData = {
         ...data,
         contestImage: photoURL,
+        creatorName: user?.displayName,
+        creatorEmail: user?.email,
       };
 
       console.log("updatedData:", updatedData);
