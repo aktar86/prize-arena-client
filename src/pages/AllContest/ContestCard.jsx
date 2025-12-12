@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const ContestCard = ({ contest }) => {
   const { darkMode } = useAuth();
   console.log(contest);
-  const { contestImage, contestTitle, contestDescription } = contest;
+  const { _id: id, contestImage, contestTitle, contestDescription } = contest;
 
   const descriptionTrim =
     contestDescription.length > 100
@@ -35,8 +35,10 @@ const ContestCard = ({ contest }) => {
         </p>
       </div>
       {/* card btn */}
-      <Link  
-      className="w-full py-2 bg-linear-to-r from-primary to-secondary text-white font-semibold flex justify-center items-center ">
+      <Link
+        to={`/contest-card-details/${id}`}
+        className="w-full py-2 bg-linear-to-r from-primary to-secondary text-white font-semibold flex justify-center items-center "
+      >
         See Details
       </Link>
     </div>

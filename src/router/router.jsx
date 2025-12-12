@@ -15,6 +15,7 @@ import UserManagement from "../pages/Dashboard/AdminDashboard/UserManagement/Use
 import ContestManagement from "../pages/Dashboard/AdminDashboard/ContestManagement/ContestManagement";
 import SubmitedTask from "../pages/Dashboard/CreatorDashboard/SubmitedTask/SubmitedTask";
 import AllContest from "../pages/AllContest/AllContest";
+import ContestCardDetails from "../pages/AllContest/ContestCardDetails";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <AllContest></AllContest>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "contest-card-details/:id",
+        element: (
+          <PrivetRoute>
+            <ContestCardDetails></ContestCardDetails>
           </PrivetRoute>
         ),
       },
