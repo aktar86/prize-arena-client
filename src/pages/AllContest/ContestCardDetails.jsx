@@ -39,7 +39,7 @@ const ContestCardDetails = () => {
 
   return (
     <div
-      className={`w-full max-w-[1440px] mx-auto p-2 lg:p-0  ${
+      className={`w-full max-w-[1440px] mx-auto p-2 lg:p-2  ${
         darkMode ? "text-white bg-gray-800" : "bg-white"
       }`}
     >
@@ -87,7 +87,7 @@ const ContestCardDetails = () => {
           </div>
         </div>
         {/* content  */}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 p-5 bg-secondary/10">
           {/* left */}
           <div className="md:col-span-2 ">
             <div>
@@ -125,7 +125,7 @@ const ContestCardDetails = () => {
           </div>
           {/* right */}
           <div className=" flex flex-col justify-end items-end w-full ">
-            <div className="w-full p-5 border border-gray-300 rounded-lg ">
+            <div className="w-full p-5 shadow-sm  bg-white rounded-lg ">
               <div>
                 <Countdown contestDeadline={contestDeadline} />
               </div>
