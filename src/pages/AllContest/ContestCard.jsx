@@ -36,7 +36,7 @@ const ContestCard = ({ contest }) => {
       </div>
       {/* card btn */}
       <Link
-        to={`/contest-card-details/${id}`}
+        to={`/contests/contest-card-details/${id}`}
         className="w-full py-2 bg-linear-to-r from-primary to-secondary text-white font-semibold flex justify-center items-center "
       >
         See Details
@@ -53,7 +53,7 @@ export default ContestCard;
 // contestEntryFee
 //
 // contestPrizeMoney
-// contestTaskInstruction
+//
 //
 // createAt
 // creatorEmail

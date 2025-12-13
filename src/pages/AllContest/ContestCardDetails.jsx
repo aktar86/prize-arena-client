@@ -2,8 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
+import Loder from "../../components/Loder/Loder";
+import ContestNotFoundPage from "../../components/ContestNotFoundPage/ContestNotFoundPage";
+import useAuth from "../../hooks/useAuth";
 
 const ContestCardDetails = () => {
+  const { darkMode } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxios();
 
@@ -16,15 +20,88 @@ const ContestCardDetails = () => {
     enabled: !!id,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (!contest) return <p>No contest found!</p>;
+  if (isLoading) return <Loder />;
+  if (!contest) return <ContestNotFoundPage />;
 
-  console.log(contest);
+  const {
+    contestImage,
+    contestTitle,
+    contestDescription,
+    contestTaskInstruction,
+    contestDeadline,
+  } = contest;
 
   return (
-    <div>
-      <h1>Contest Card Details</h1>
-      <h1>{contest.contestTitle}</h1>
+    <div
+      className={`w-full max-w-[1440px] mx-auto  ${
+        darkMode ? "text-white bg-gray-800" : "bg-white"
+      }`}
+    >
+      <h1 className="text-3xl font-bold">
+        Contest <span className="text-secondary">Details</span>
+      </h1>
+
+      {/* card content wrap  */}
+      <div>
+        {/* img and title and description  */}
+        <div>
+          <div className="w-full lg:h-[500px]  grid lg:grid-cols-3 gap-4">
+            <div className="lg:relative h-full w-full lg:col-span-2 overflow-hidden">
+              <img
+                className="w-full object-cover"
+                src={contestImage}
+                alt={contestImage}
+              />
+              {/* gradient overlay */}
+              <div className="lg:absolute lg:inset-0 lg:bg-linear-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
+              {/* title and description  */}
+              <div className="lg:absolute  lg:bottom-10 lg:left-5 mt-5 lg:mt-0 ">
+                <h1 className="lg:text-white text-4xl font-bold">
+                  {contestTitle}
+                </h1>
+                <p className="lg:text-white w-4/5 mt-2">{contestDescription}</p>
+              </div>
+            </div>
+            <div className="h-full hidden  lg:flex flex-col gap-4 overflow-hidden">
+              <div className="flex-1 w-full overflow-hidden">
+                <img
+                  className="w-full object-cover"
+                  src={contestImage}
+                  alt={contestImage}
+                />
+              </div>
+              <div className="flex-1  overflow-hidden">
+                <img
+                  className="w-full object-cover"
+                  src={contestImage}
+                  alt={contestImage}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* content  */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+          {/* left */}
+          <div className="md:col-span-2 border">
+            <p>
+              <span className="font-semibold text-xl">Task Instruction:</span>{" "}
+              <br /> {contestTaskInstruction}
+            </p>
+          </div>
+          {/* right */}
+          <div className="border ">
+            <p>
+              Deadline : <br />{" "}
+              <span className="text-3xl font-bold">
+                {new Date(contestDeadline).toLocaleDateString()}
+                {" || "}
+                {new Date(contestDeadline).toLocaleTimeString()}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
