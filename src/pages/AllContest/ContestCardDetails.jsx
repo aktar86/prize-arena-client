@@ -5,6 +5,7 @@ import useAxios from "../../hooks/useAxios";
 import Loder from "../../components/Loder/Loder";
 import ContestNotFoundPage from "../../components/ContestNotFoundPage/ContestNotFoundPage";
 import useAuth from "../../hooks/useAuth";
+import Countdown from "../../components/Countdown/Countdown";
 
 const ContestCardDetails = () => {
   const { darkMode } = useAuth();
@@ -29,11 +30,16 @@ const ContestCardDetails = () => {
     contestDescription,
     contestTaskInstruction,
     contestDeadline,
+    contestCategory,
+    contestPrizeMoney,
+    creatorName,
+    creatorEmail,
+    contestEntryFee,
   } = contest;
 
   return (
     <div
-      className={`w-full max-w-[1440px] mx-auto  ${
+      className={`w-full max-w-[1440px] mx-auto p-2 lg:p-0  ${
         darkMode ? "text-white bg-gray-800" : "bg-white"
       }`}
     >
@@ -81,24 +87,62 @@ const ContestCardDetails = () => {
           </div>
         </div>
         {/* content  */}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* left */}
-          <div className="md:col-span-2 border">
-            <p>
-              <span className="font-semibold text-xl">Task Instruction:</span>{" "}
-              <br /> {contestTaskInstruction}
-            </p>
+          <div className="md:col-span-2 ">
+            <div>
+              <p className="lg:w-2/3">
+                <span className="font-semibold text-xl">
+                  Full Task and Instruction:
+                </span>{" "}
+                <br /> {contestTaskInstruction}
+              </p>
+            </div>
+
+            <div className="my-10">
+              <p className=" mt-5 ">
+                Category: <br />
+                <span className=" text-xl font-semibold">
+                  {contestCategory}
+                </span>
+              </p>
+              <p className="mt-5">
+                Prize Money: <br />
+                <span className="text-3xl font-bold">
+                  {" "}
+                  ${contestPrizeMoney}
+                </span>
+              </p>
+
+              <p className="mt-5">Participants: {0}</p>
+            </div>
+
+            <div>
+              <p>Contest Created By- </p>
+              <h3 className="text-2xl font-bold">{creatorName}</h3>
+              {/* <p>{creatorEmail}</p> */}
+            </div>
           </div>
           {/* right */}
-          <div className="border ">
-            <p>
-              Deadline : <br />{" "}
-              <span className="text-3xl font-bold">
-                {new Date(contestDeadline).toLocaleDateString()}
-                {" || "}
-                {new Date(contestDeadline).toLocaleTimeString()}
-              </span>
-            </p>
+          <div className=" flex flex-col justify-end items-end w-full ">
+            <div className="w-full p-5 border border-gray-300 rounded-lg ">
+              <div>
+                <Countdown contestDeadline={contestDeadline} />
+              </div>
+
+              <div className="my-5">
+                <p>Contest Winner:</p>
+                <p className="text-xl font-bold">
+                  Winner name will appear here
+                </p>
+              </div>
+              <div className="space-y-5">
+                <button className="bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer">
+                  Register & Pay ${contestEntryFee}
+                </button>
+                <button className="btn w-full text-xl ">Submit Task</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -107,3 +151,14 @@ const ContestCardDetails = () => {
 };
 
 export default ContestCardDetails;
+
+// contestEntryFee
+//
+
+//
+//
+// createAt
+// creatorEmail
+// creatorName
+// status
+// _id
