@@ -16,6 +16,7 @@ import ContestManagement from "../pages/Dashboard/AdminDashboard/ContestManageme
 import SubmitedTask from "../pages/Dashboard/CreatorDashboard/SubmitedTask/SubmitedTask";
 import AllContest from "../pages/AllContest/AllContest";
 import ContestCardDetails from "../pages/AllContest/ContestCardDetails";
+import MyParticipatedContest from "../pages/Dashboard/UserDashboard/MyParticipatedContest/MyParticipatedContest";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,11 @@ const router = createBrowserRouter([
       </PrivetRoute>
     ),
     children: [
+      // user area
+      {
+        path: "my-participated-contest",
+        Component: MyParticipatedContest,
+      },
       // creator area
       {
         path: "add-contest",

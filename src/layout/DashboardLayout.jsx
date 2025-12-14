@@ -60,6 +60,20 @@ const DashboardLayout = () => {
                 </button>
               </Link>
             </li>
+            {/*  user route  */}
+            <li>
+              <NavLink
+                to="/dashboard/my-participated-contest"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Participated Contest"
+              >
+                {/* icon */}
+                <Trophy />
+                <span className="is-drawer-close:hidden">
+                  My Participated Contest
+                </span>
+              </NavLink>
+            </li>
 
             {/*  creator route my contest */}
             <li>

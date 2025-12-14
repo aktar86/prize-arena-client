@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import Countdown from "../../components/Countdown/Countdown";
 
 const ContestCardDetails = () => {
-  const { darkMode } = useAuth();
+  const { user, darkMode } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxios();
 
@@ -33,9 +33,24 @@ const ContestCardDetails = () => {
     contestCategory,
     contestPrizeMoney,
     creatorName,
-    creatorEmail,
     contestEntryFee,
+    status,
   } = contest;
+  // console.log(user);
+
+  const hanleRegisterAndPayment = (contest) => {
+    // console.log(contest);
+
+    const paymentInfo = {
+      contestId: contest._id,
+      userUID: user?.uid,
+      title: contest.contestTitle,
+      cost: contest.contestEntryFee,
+      email: contest.creatorEmail,
+      name: contest.creatorName,
+    };
+    console.log("paymentInfo", paymentInfo);
+  };
 
   return (
     <div
@@ -129,6 +144,16 @@ const ContestCardDetails = () => {
               <div>
                 <Countdown contestDeadline={contestDeadline} />
               </div>
+              <div className="flex gap-5 my-5">
+                <p>Status:</p>
+                <p>
+                  {status === "Confirmed" ? (
+                    <span className="text-green-500">Active</span>
+                  ) : (
+                    <span>Completed</span>
+                  )}
+                </p>
+              </div>
 
               <div className="my-5">
                 <p>Contest Winner:</p>
@@ -137,7 +162,10 @@ const ContestCardDetails = () => {
                 </p>
               </div>
               <div className="space-y-5">
-                <button className="bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer">
+                <button
+                  onClick={() => hanleRegisterAndPayment(contest)}
+                  className="bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer"
+                >
                   Register & Pay ${contestEntryFee}
                 </button>
                 <button className="btn w-full text-xl ">Submit Task</button>
