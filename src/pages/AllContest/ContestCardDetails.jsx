@@ -34,11 +34,13 @@ const ContestCardDetails = () => {
     contestPrizeMoney,
     creatorName,
     contestEntryFee,
+    paymentStatus,
     status,
+    participantsCount,
   } = contest;
   // console.log(user);
 
-  const hanleRegisterAndPayment = (contest) => {
+  const hanleRegisterAndPayment = async (contest) => {
     // console.log(contest);
 
     const paymentInfo = {
@@ -48,8 +50,13 @@ const ContestCardDetails = () => {
       cost: contest.contestEntryFee,
       email: contest.creatorEmail,
       name: contest.creatorName,
+      deadline: contest.contestDeadline,
     };
     console.log("paymentInfo", paymentInfo);
+
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    // console.log(res.data.url);
+    window.location.assign(res.data.url);
   };
 
   return (
@@ -129,7 +136,7 @@ const ContestCardDetails = () => {
                 </span>
               </p>
 
-              <p className="mt-5">Participants: {0}</p>
+              <p className="mt-5">Participants: {participantsCount}</p>
             </div>
 
             <div>
@@ -164,7 +171,7 @@ const ContestCardDetails = () => {
               <div className="space-y-5">
                 <button
                   onClick={() => hanleRegisterAndPayment(contest)}
-                  className="bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer"
+                  className={`bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer`}
                 >
                   Register & Pay ${contestEntryFee}
                 </button>

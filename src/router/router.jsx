@@ -17,6 +17,8 @@ import SubmitedTask from "../pages/Dashboard/CreatorDashboard/SubmitedTask/Submi
 import AllContest from "../pages/AllContest/AllContest";
 import ContestCardDetails from "../pages/AllContest/ContestCardDetails";
 import MyParticipatedContest from "../pages/Dashboard/UserDashboard/MyParticipatedContest/MyParticipatedContest";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,14 @@ const router = createBrowserRouter([
       {
         path: "submited-tasks",
         Component: SubmitedTask,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancel",
+        Component: PaymentCancel,
       },
     ],
   },
