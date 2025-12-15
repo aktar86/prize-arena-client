@@ -35,7 +35,7 @@ const AddContest = () => {
     const formData = new FormData();
     formData.append("image", contestBannerImage);
 
-    const image_API_URL = `https://api.imgbb.com/1/upload?expiration=600&key=${
+    const image_API_URL = `https://api.imgbb.com/1/upload?key=${
       import.meta.env.VITE_IMAGE_HOST
     }`;
 

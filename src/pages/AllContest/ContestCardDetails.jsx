@@ -12,6 +12,7 @@ const ContestCardDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxios();
 
+  //contest card details data fetch here
   const { isLoading, data: contest } = useQuery({
     queryKey: ["contest", id],
     queryFn: async () => {
@@ -20,6 +21,20 @@ const ContestCardDetails = () => {
     },
     enabled: !!id,
   });
+
+  //participation status check for register button disable
+  const { data: participation } = useQuery({
+    queryKey: ["participation", id, user?.uid],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/participation/${id}?userUID=${user.uid}`
+      );
+      return res.data;
+    },
+    enabled: !!id && !!user?.uid,
+  });
+
+  console.log(participation);
 
   if (isLoading) return <Loder />;
   if (!contest) return <ContestNotFoundPage />;
@@ -34,7 +49,6 @@ const ContestCardDetails = () => {
     contestPrizeMoney,
     creatorName,
     contestEntryFee,
-    paymentStatus,
     status,
     participantsCount,
   } = contest;
@@ -48,7 +62,7 @@ const ContestCardDetails = () => {
       userUID: user?.uid,
       title: contest.contestTitle,
       cost: contest.contestEntryFee,
-      email: contest.creatorEmail,
+      email: user.email,
       name: contest.creatorName,
       deadline: contest.contestDeadline,
     };
@@ -87,7 +101,9 @@ const ContestCardDetails = () => {
                 <h1 className="lg:text-white text-4xl font-bold">
                   {contestTitle}
                 </h1>
-                <p className="lg:text-white w-4/5 mt-2">{contestDescription}</p>
+                <p className="lg:text-white max-w-4/5 mt-2">
+                  {contestDescription}
+                </p>
               </div>
             </div>
             <div className="h-full hidden  lg:flex flex-col gap-4 overflow-hidden">
@@ -113,7 +129,7 @@ const ContestCardDetails = () => {
           {/* left */}
           <div className="md:col-span-2 ">
             <div>
-              <p className="lg:w-2/3">
+              <p className="lg:max-w-2/3">
                 <span className="font-semibold text-xl">
                   Full Task and Instruction:
                 </span>{" "}
@@ -171,11 +187,19 @@ const ContestCardDetails = () => {
               <div className="space-y-5">
                 <button
                   onClick={() => hanleRegisterAndPayment(contest)}
+                  disabled={
+                    participation === undefined || participation?.participated
+                  }
                   className={`bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer`}
                 >
                   Register & Pay ${contestEntryFee}
                 </button>
-                <button className="btn w-full text-xl ">Submit Task</button>
+                <button
+                  disabled={!participation?.participated}
+                  className="btn w-full text-xl "
+                >
+                  Submit Task
+                </button>
               </div>
             </div>
           </div>

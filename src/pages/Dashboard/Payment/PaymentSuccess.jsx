@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 
@@ -7,14 +7,16 @@ const PaymentSuccess = () => {
   const [paymentInfo, setPaymentInfo] = useState();
   const sessionId = searchParams.get("session_id");
   const axiosSecure = useAxios();
-  console.log(sessionId);
+
+  const hasCalledApi = useRef(false);
 
   useEffect(() => {
-    if (sessionId) {
+    if (sessionId && !hasCalledApi.current) {
+      hasCalledApi.current = true;
+
       axiosSecure
-        .patch(`payment-success?session_id=${sessionId}`)
+        .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
-          console.log(res.data);
           if (!paymentInfo) {
             setPaymentInfo({
               transactionId: res.data.transactionId,
@@ -23,7 +25,7 @@ const PaymentSuccess = () => {
           }
         });
     }
-  }, [sessionId, axiosSecure]);
+  }, [sessionId, axiosSecure, paymentInfo]);
   return (
     <div>
       <h1>Payment Success Page</h1>

@@ -5,11 +5,17 @@ import { Link } from "react-router";
 const ContestCard = ({ contest }) => {
   const { darkMode } = useAuth();
   console.log(contest);
-  const { _id: id, contestImage, contestTitle, contestDescription } = contest;
+  const {
+    _id: id,
+    contestImage,
+    contestTitle,
+    contestDescription,
+    participantsCount,
+  } = contest;
 
   const descriptionTrim =
     contestDescription.length > 100
-      ? contestDescription.slice(0, 100) + "..."
+      ? contestDescription.slice(0, 60) + "..."
       : contestDescription;
 
   return (
@@ -31,7 +37,7 @@ const ContestCard = ({ contest }) => {
           {descriptionTrim}
         </p>
         <p className="text-orange-500  py-1 text-left">
-          Participate Count: {0}
+          Participate Count: {participantsCount}
         </p>
       </div>
       {/* card btn */}
