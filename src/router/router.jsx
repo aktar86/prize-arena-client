@@ -19,6 +19,7 @@ import ContestCardDetails from "../pages/AllContest/ContestCardDetails";
 import MyParticipatedContest from "../pages/Dashboard/UserDashboard/MyParticipatedContest/MyParticipatedContest";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
+import UpdateContest from "../pages/Dashboard/MyContest/UpdateContest";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "my-contest",
         Component: MyContest,
+      },
+      {
+        path: "update-contest",
+        Component: UpdateContest,
       },
       // admin area
       {

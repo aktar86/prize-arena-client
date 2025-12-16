@@ -1,16 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useParams } from "react-router";
+import React, { useRef } from "react";
+import { Link, useParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import Loder from "../../components/Loder/Loder";
 import ContestNotFoundPage from "../../components/ContestNotFoundPage/ContestNotFoundPage";
 import useAuth from "../../hooks/useAuth";
 import Countdown from "../../components/Countdown/Countdown";
+import { FaArrowLeft } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const ContestCardDetails = () => {
   const { user, darkMode } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxios();
+  const submitModalRef = useRef();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   //contest card details data fetch here
   const { isLoading, data: contest } = useQuery({
@@ -33,7 +43,7 @@ const ContestCardDetails = () => {
     },
     enabled: !!id && !!user?.uid,
   });
-
+  const hasParticipated = participation?.participated ?? false;
   console.log(participation);
 
   if (isLoading) return <Loder />;
@@ -73,15 +83,68 @@ const ContestCardDetails = () => {
     window.location.assign(res.data.url);
   };
 
+  //open modal button
+  const handleSubmitModal = () => {
+    submitModalRef.current.showModal();
+  };
+
+  //submit modal
+  const handleModalSubmit = (contest, data) => {
+    console.log(contest);
+    console.log(data);
+
+    const submitInfo = {
+      contestId: contest._id,
+      userId: user?.uid,
+      ...data,
+    };
+    axiosSecure.post("/submit-task", submitInfo).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        submitModalRef.current.close();
+        setTimeout(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Task has been submitted successfully",
+            showConfirmButton: true,
+            timer: 2000,
+            focusConfirm: false,
+          });
+        }, 100);
+      } else {
+        Swal.fire({
+          position: "center",
+          title: res.data.message || "Submission failed",
+          showConfirmButton: true,
+        });
+      }
+    });
+  };
+
   return (
     <div
       className={`w-full max-w-[1440px] mx-auto p-2 lg:p-2  ${
         darkMode ? "text-white bg-gray-800" : "bg-white"
       }`}
     >
-      <h1 className="text-3xl font-bold">
-        Contest <span className="text-secondary">Details</span>
-      </h1>
+      <div className="flex items-center justify-center mt-10 ">
+        <FaArrowLeft />
+        <Link to="/all-contests" className="ml-2">
+          {" "}
+          Go Back
+        </Link>
+      </div>
+      <div className="text-center lg:max-w-8/12 mx-auto my-10">
+        <h1 className="text-3xl font-bold ">
+          Contest <span className="text-secondary">Details</span>
+        </h1>
+        <p>
+          Join this exciting contest to showcase your skills, compete with
+          talented participants, gain recognition, and win amazing prizes. Don’t
+          miss this opportunity to prove yourself and stand out.
+        </p>
+      </div>
 
       {/* card content wrap  */}
       <div>
@@ -187,20 +250,57 @@ const ContestCardDetails = () => {
               <div className="space-y-5">
                 <button
                   onClick={() => hanleRegisterAndPayment(contest)}
-                  disabled={
-                    participation === undefined || participation?.participated
-                  }
+                  disabled={hasParticipated}
                   className={`bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer`}
                 >
                   Register & Pay ${contestEntryFee}
                 </button>
                 <button
-                  disabled={!participation?.participated}
+                  disabled={!hasParticipated}
                   className="btn w-full text-xl "
+                  onClick={() => handleSubmitModal()}
                 >
                   Submit Task
                 </button>
               </div>
+
+              {/* modal for submit task */}
+              <dialog
+                ref={submitModalRef}
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  <form method="dialog" className="absolute right-3 top-3 ">
+                    <button className="btn btn-sm btn-circle bg-linear-to-r from-primary to-secondary text-white">
+                      ✕
+                    </button>
+                  </form>
+                  <div className="py-10">
+                    <h3 className="font-semibold text-xl text-primary mb-2">
+                      Submit Important Links and Text
+                    </h3>
+                    <hr className="border border-primary" />
+
+                    <form
+                      onSubmit={handleSubmit((data) =>
+                        handleModalSubmit(contest, data)
+                      )}
+                    >
+                      <textarea
+                        rows={5}
+                        {...register("taskText")}
+                        className=" border-2  border-gray-400 rounded-lg p-2 outline-0  focus:border-2 focus:border-primary w-full my-5"
+                        placeholder="Write contest details..."
+                      ></textarea>
+                      <input
+                        type="submit"
+                        value="Submit Now"
+                        className="btn w-full bg-linear-to-r from-primary to-secondary text-white"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </dialog>
             </div>
           </div>
         </div>

@@ -4,22 +4,21 @@ import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router";
 
 const MyContest = () => {
   const { user } = useAuth();
-  console.log("User email:", user?.email);
   const axiosSecure = useAxios();
 
   const { data: creatorContests = [] } = useQuery({
     queryKey: ["contests", user?.email],
     queryFn: async () => {
-      // user object আছে কিনা চেক করুন
       if (!user?.email) return [];
 
       const res = await axiosSecure.get(`/contests?email=${user.email}`);
       return res.data;
     },
-    enabled: !!user?.email, // শুধু user থাকলে request করবে
+    enabled: !!user?.email,
   });
 
   return (
@@ -65,9 +64,12 @@ const MyContest = () => {
                 <td>
                   {contest.status === "Pending" ? (
                     <>
-                      <button className="btn btn-squire bg-blue-500 hover:bg-blue-600 text-white">
+                      <Link
+                        to="/dashboard/update-contest"
+                        className="btn btn-squire bg-blue-500 hover:bg-blue-600 text-white"
+                      >
                         <MdEditSquare />
-                      </button>
+                      </Link>
                       <button className="btn btn-squire bg-rose-500 hover:bg-rose-600 text-white lg:mx-2">
                         <MdDelete />
                       </button>
