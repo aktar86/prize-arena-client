@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { FaToggleOn } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
+import Logo from "../components/Logo/Logo";
 
 const DashboardLayout = () => {
   return (
@@ -29,7 +30,7 @@ const DashboardLayout = () => {
             <ListCollapse />
           </label>
           <div className="px-4 text-2xl font-bold">
-            Prize<span className="text-primary">Arena</span>
+            <Logo />
           </div>
         </nav>
         {/* Page content here */}

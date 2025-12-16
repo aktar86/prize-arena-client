@@ -93,7 +93,7 @@ const router = createBrowserRouter([
         Component: MyContest,
       },
       {
-        path: "update-contest",
+        path: "update-contest/:id",
         Component: UpdateContest,
       },
       // admin area

@@ -18,7 +18,7 @@ const ContestManagement = () => {
   const updateContest = (id, status, titleText) => {
     const updateStatus = { status: status };
 
-    axiosSecure.patch(`/contests/${id._id}`, updateStatus).then((res) => {
+    axiosSecure.patch(`/contests/admin/${id._id}`, updateStatus).then((res) => {
       console.log(res.data);
 
       if (res.data.modifiedCount) {

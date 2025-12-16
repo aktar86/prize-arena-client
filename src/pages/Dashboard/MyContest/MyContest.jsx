@@ -21,6 +21,10 @@ const MyContest = () => {
     enabled: !!user?.email,
   });
 
+  const handleDeleteContest = (id) => {
+    console.log("contest delete,", id);
+  };
+
   return (
     <div>
       <h1>Here is my Contest : {creatorContests.length}</h1>
@@ -65,12 +69,15 @@ const MyContest = () => {
                   {contest.status === "Pending" ? (
                     <>
                       <Link
-                        to="/dashboard/update-contest"
+                        to={`/dashboard/update-contest/${contest._id}`}
                         className="btn btn-squire bg-blue-500 hover:bg-blue-600 text-white"
                       >
                         <MdEditSquare />
                       </Link>
-                      <button className="btn btn-squire bg-rose-500 hover:bg-rose-600 text-white lg:mx-2">
+                      <button
+                        onClick={() => handleDeleteContest(contest._id)}
+                        className="btn btn-squire bg-rose-500 hover:bg-rose-600 text-white lg:mx-2"
+                      >
                         <MdDelete />
                       </button>
                     </>

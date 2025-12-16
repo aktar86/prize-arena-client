@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import DatePicker from "react-datepicker";
 import axios from "axios";
+import { Link, useParams } from "react-router";
+import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
+import { FaArrowLeft } from "react-icons/fa";
 
 const UpdateContest = () => {
   const { register, handleSubmit, setValue } = useForm();
   const [deadline, setDeadline] = useState();
+  const axiosSecure = useAxios();
+  const { id } = useParams();
 
   const categories = [
     "Logo Design",
@@ -33,15 +38,32 @@ const UpdateContest = () => {
         contestImage: photoURL,
       };
 
-      console.log(updateInfo);
+      axiosSecure.patch(`/contests/${id}`, updateInfo).then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: "Contest updated Successfully. Please, wait for admin apprval",
+            showConfirmButton: true,
+            timer: 2000,
+          });
+        }
+      });
     });
   };
 
   return (
-    <div className="bg-secondary/10 min-h-[calc(100vh-84px)]">
-      <h1 className="text-3xl font-bold text-center py-5">
-        Update <span className="text-primary">Contest</span>
-      </h1>
+    <div className="bg-secondary/10 min-h-[calc(100vh-84px)] py-10">
+      <div className="flex flex-col justify-center items-center pb-5">
+        <Link to="/dashboard/my-contest" className="flex items-center gap-2">
+          <FaArrowLeft />
+          <p>Go Back</p>
+        </Link>
+        <h1 className="text-3xl font-bold text-center mt-5">
+          Update <span className="text-primary">Contest</span>
+        </h1>
+      </div>
 
       <div className="w-full max-w-xl mx-auto bg-white p-7 rounded-sm">
         <form onSubmit={handleSubmit(handleUpdateContest)}>
