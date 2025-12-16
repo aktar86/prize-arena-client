@@ -5,12 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const MyContest = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-  const { data: creatorContests = [] } = useQuery({
+  const { refetch, data: creatorContests = [] } = useQuery({
     queryKey: ["contests", user?.email],
     queryFn: async () => {
       if (!user?.email) return [];
@@ -21,8 +22,29 @@ const MyContest = () => {
     enabled: !!user?.email,
   });
 
-  const handleDeleteContest = (id) => {
-    console.log("contest delete,", id);
+  const handleDeleteContest = (contest) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You won't be able to revert ${contest.contestTitle}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/contests/${contest._id}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your contest has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -75,16 +97,19 @@ const MyContest = () => {
                         <MdEditSquare />
                       </Link>
                       <button
-                        onClick={() => handleDeleteContest(contest._id)}
+                        onClick={() => handleDeleteContest(contest)}
                         className="btn btn-squire bg-rose-500 hover:bg-rose-600 text-white lg:mx-2"
                       >
                         <MdDelete />
                       </button>
                     </>
                   ) : (
-                    <button className="btn btn-squire bg-emerald-500 hover:bg-emerald-600 text-white">
+                    <Link
+                      to={`/dashboard/submited-tasks/${contest._id}`}
+                      className="btn btn-squire bg-emerald-500 hover:bg-emerald-600 text-white"
+                    >
                       <FaMagnifyingGlass />
-                    </button>
+                    </Link>
                   )}
                 </td>
               </tr>

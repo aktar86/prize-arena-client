@@ -95,9 +95,13 @@ const ContestCardDetails = () => {
 
     const submitInfo = {
       contestId: contest._id,
+      name: user?.displayName,
+      email: user?.email,
       userId: user?.uid,
       ...data,
     };
+    console.log(submitInfo);
+
     axiosSecure.post("/submit-task", submitInfo).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
@@ -275,7 +279,7 @@ const ContestCardDetails = () => {
                       ✕
                     </button>
                   </form>
-                  <div className="py-10">
+                  <div className="pt-10">
                     <h3 className="font-semibold text-xl text-primary mb-2">
                       Submit Important Links and Text
                     </h3>

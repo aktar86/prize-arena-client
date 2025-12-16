@@ -110,7 +110,7 @@ const router = createBrowserRouter([
         Component: ContestManagement,
       },
       {
-        path: "submited-tasks",
+        path: "submited-tasks/:id",
         Component: SubmitedTask,
       },
       {

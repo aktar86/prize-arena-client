@@ -102,17 +102,17 @@ const DashboardLayout = () => {
             </li>
 
             {/* Submited Task */}
-            <li>
+            {/* <li>
               <NavLink
                 to="/dashboard/submited-tasks"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Add Contest"
-              >
-                {/* icon */}
-                <CheckCircle />
+              > */}
+            {/* icon */}
+            {/* <CheckCircle />
                 <span className="is-drawer-close:hidden">Submited Tasks</span>
               </NavLink>
-            </li>
+            </li> */}
 
             {/*  admin route approve-creators  */}
             <li>

@@ -43,17 +43,25 @@ const ContestManagement = () => {
   };
 
   const handleContestDelete = (contest) => {
-    axiosSecure.delete(`/contests/${contest._id}`).then((res) => {
-      console.log(res.data);
-
-      if (res.data.deletedCount) {
-        refetch();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Contest deleted successfully",
-          showConfirmButton: true,
-          timer: 2000,
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You won't be able to revert ${contest.contestTitle}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/contests/${contest._id}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your contest has been deleted.",
+              icon: "success",
+            });
+          }
         });
       }
     });
