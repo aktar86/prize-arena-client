@@ -47,6 +47,7 @@ const Register = () => {
             photoURL: photoURL,
           };
           axiosSecure.post("/users", userInfo).then((res) => {
+            navigate(location?.state || "/");
             if (res.data.insertedId) {
               console.log("user created in the data base");
               Swal.fire({
@@ -67,9 +68,7 @@ const Register = () => {
 
           //update user profile
           updateUserProfile(userProfile)
-            .then(() => {
-              navigate(location?.state || "/");
-            })
+            .then(() => {})
             .catch((error) => {
               console.log(error.message);
             });

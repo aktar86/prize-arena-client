@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const MyContest = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxios();
 
   const { refetch, data: creatorContests = [] } = useQuery({
@@ -21,6 +21,8 @@ const MyContest = () => {
     },
     enabled: !!user?.email,
   });
+
+
 
   const handleDeleteContest = (contest) => {
     Swal.fire({

@@ -24,9 +24,8 @@ const SocialLogin = () => {
         };
 
         axiosSecure.post("/users", userInfo).then((res) => {
+          navigate(location?.state || "/");
           if (res.data.insertedId) {
-            console.log("data store in the user database", res.data);
-            navigate(location?.state || "/");
             Swal.fire({
               position: "top-end",
               icon: "success",

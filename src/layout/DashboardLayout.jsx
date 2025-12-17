@@ -13,8 +13,11 @@ import React from "react";
 import { FaToggleOn } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
 import Logo from "../components/Logo/Logo";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
+  console.log("in the dashboard:", role);
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -101,58 +104,55 @@ const DashboardLayout = () => {
               </NavLink>
             </li>
 
-            {/* Submited Task */}
-            {/* <li>
-              <NavLink
-                to="/dashboard/submited-tasks"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Contest"
-              > */}
-            {/* icon */}
-            {/* <CheckCircle />
-                <span className="is-drawer-close:hidden">Submited Tasks</span>
-              </NavLink>
-            </li> */}
+            {/*  admin route   */}
 
-            {/*  admin route approve-creators  */}
-            <li>
-              <NavLink
-                to="/dashboard/approve-creators"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Approve Creators"
-              >
-                {/* icon */}
-                <UserPlus />
-                <span className="is-drawer-close:hidden">Approve Creators</span>
-              </NavLink>
-            </li>
-            {/* User Management */}
-            <li>
-              <NavLink
-                to="/dashboard/user-management"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="User Management"
-              >
-                {/* icon */}
-                <Users />
-                <span className="is-drawer-close:hidden">User Management</span>
-              </NavLink>
-            </li>
+            {role === "admin" && (
+              <>
+                {/* approve-creators */}
+                <li>
+                  <NavLink
+                    to="/dashboard/approve-creators"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Creators"
+                  >
+                    {/* icon */}
+                    <UserPlus />
+                    <span className="is-drawer-close:hidden">
+                      Approve Creators
+                    </span>
+                  </NavLink>
+                </li>
+                {/* User Management */}
+                <li>
+                  <NavLink
+                    to="/dashboard/user-management"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="User Management"
+                  >
+                    {/* icon */}
+                    <Users />
+                    <span className="is-drawer-close:hidden">
+                      User Management
+                    </span>
+                  </NavLink>
+                </li>
 
-            {/* Contest Management */}
-            <li>
-              <NavLink
-                to="/dashboard/contest-management"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Contest Management"
-              >
-                {/* icon */}
-                <Trophy />
-                <span className="is-drawer-close:hidden">
-                  Contest Management
-                </span>
-              </NavLink>
-            </li>
+                {/* Contest Management */}
+                <li>
+                  <NavLink
+                    to="/dashboard/contest-management"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Contest Management"
+                  >
+                    {/* icon */}
+                    <Trophy />
+                    <span className="is-drawer-close:hidden">
+                      Contest Management
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>

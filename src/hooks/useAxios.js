@@ -40,9 +40,9 @@ const useAxios = () => {
 
     return () => {
       axiosSecure.interceptors.request.eject(reqInterceptors);
-      axiosSecure.interceptors.request.eject(resInterceptors);
+      axiosSecure.interceptors.response.eject(resInterceptors);
     };
-  }, [user]);
+  }, [user, logOut, navigate]);
   return axiosSecure;
 };
 
