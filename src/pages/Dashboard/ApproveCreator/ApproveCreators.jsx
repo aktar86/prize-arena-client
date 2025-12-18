@@ -18,6 +18,15 @@ const ApproveCreators = () => {
     },
   });
 
+  // const { data: role } = useQuery({
+  //   queryKey: ["user-role"],
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(`/users/${user?.email}`);
+  //     return res.data?.role;
+  //   },
+  // });
+  // console.log("in the approve creators", role);
+
   const updateCreatorStatus = (creator, status) => {
     const updateInfo = { status: status, email: creator.creatorEmail };
 
@@ -75,6 +84,7 @@ const ApproveCreators = () => {
               <th>Email</th>
               <th>Created Date</th>
               <th>Status</th>
+              <th>Role</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -95,6 +105,16 @@ const ApproveCreators = () => {
                   }`}
                 >
                   {creator.status}
+                </td>
+
+                <td
+                  className={`${
+                    creator.status === "approved"
+                      ? "text-blue-500"
+                      : "text-orange-500"
+                  }`}
+                >
+                  {creator.status === "approved" ? "creator" : "pending"}
                 </td>
                 <td>
                   <button

@@ -9,6 +9,7 @@ const AllContest = () => {
   const { darkMode } = useAuth();
   const axiosSecure = useAxios();
   const [activeTab, setActiveTab] = useState("All");
+
   const { isLoading, data: contests = [] } = useQuery({
     queryKey: ["approved-contest", "Confirmed"],
     queryFn: async () => {
@@ -67,9 +68,11 @@ const AllContest = () => {
         </p>
       </div>
       <p className="pl-3">
-        Total Contest:
+        Total Contest:{" "}
         <span className="text-secondary ">
-          {filteredContests.length < 10 && "0" + filteredContests.length}
+          {filteredContests.length < 10
+            ? "0" + filteredContests.length
+            : filteredContests.length}
         </span>{" "}
       </p>
 

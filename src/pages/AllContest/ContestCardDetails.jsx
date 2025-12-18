@@ -6,15 +6,18 @@ import Loder from "../../components/Loder/Loder";
 import ContestNotFoundPage from "../../components/ContestNotFoundPage/ContestNotFoundPage";
 import useAuth from "../../hooks/useAuth";
 import Countdown from "../../components/Countdown/Countdown";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import closeIcon from "../../assets/close.png";
 
 const ContestCardDetails = () => {
   const { user, darkMode } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxios();
   const submitModalRef = useRef();
+
+  console.log(user);
 
   const {
     register,
@@ -45,7 +48,6 @@ const ContestCardDetails = () => {
     enabled: !!id && !!user?.uid,
   });
   const hasParticipated = participation?.participated ?? false;
-  console.log(participation);
 
   //submit-task for status check and btn disable
   const { data: submissionData, refetch } = useQuery({
@@ -112,6 +114,7 @@ const ContestCardDetails = () => {
       name: user?.displayName,
       email: user?.email,
       userId: user?.uid,
+      photoUrl: user?.photoURL,
       ...data,
     };
     console.log(submitInfo);
@@ -267,7 +270,22 @@ const ContestCardDetails = () => {
                   } w-full  p-5 shadow-sm  rounded-lg `}
                 >
                   <div>
-                    <Countdown contestDeadline={contestDeadline} />
+                    {status === "Closed" ? (
+                      <>
+                        <div className="flex flex-col justify-center items-center">
+                          <img
+                            src={closeIcon}
+                            alt={closeIcon}
+                            className="w-30"
+                          />
+                          <h2 className="text-2xl text-red-500 font-semibold">
+                            Contest is closed
+                          </h2>
+                        </div>
+                      </>
+                    ) : (
+                      <Countdown contestDeadline={contestDeadline} />
+                    )}
                   </div>
                   <div className="flex gap-5 my-5">
                     <p>Status:</p>
@@ -275,16 +293,28 @@ const ContestCardDetails = () => {
                       {status === "Confirmed" ? (
                         <span className="text-green-500">Active</span>
                       ) : (
-                        <span>Completed</span>
+                        <span className="text-red-500">Completed</span>
                       )}
                     </p>
                   </div>
 
                   <div className="my-5">
-                    <p>Contest Winner:</p>
-                    <p className="text-xl font-bold">
-                      Winner name will appear here
-                    </p>
+                    <h2 className="text-xl font-bold text-secondary">
+                      Contest Winner:
+                    </h2>
+                    <div className="flex flex-col md:flex-row md:gap-2 ">
+                      <img
+                        src={contest.winner?.photoUrl}
+                        alt={contest.winner?.photoUrl}
+                        className="max-w-20 rounded-full object-cover flex-1"
+                      />
+                      <div className="flex-1">
+                        <p className="text-lg lg:text-2xl font-bold ">
+                          {contest.winner.name}
+                        </p>
+                        <p className="text-sm ">{contest.winner.email}</p>
+                      </div>
+                    </div>
                   </div>
                   <div className="space-y-5">
                     <button
@@ -302,7 +332,7 @@ const ContestCardDetails = () => {
                     </button>
                     <button
                       disabled={!hasParticipated || hasSubmitted}
-                      className={` py-2 w-full text-xl cursor-pointer ${
+                      className={` py-2 w-full text-xl bg-gray-300 cursor-pointer ${
                         !hasParticipated || hasSubmitted
                           ? "btn-disabled opacity-50 cursor-not-allowed"
                           : "cursor-pointer"

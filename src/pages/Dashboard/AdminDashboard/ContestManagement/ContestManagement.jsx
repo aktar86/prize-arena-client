@@ -26,7 +26,7 @@ const ContestManagement = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: titleText,
+          text: titleText,
           showConfirmButton: true,
           timer: 2000,
         });

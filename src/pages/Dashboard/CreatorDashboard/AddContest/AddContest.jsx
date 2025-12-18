@@ -144,6 +144,7 @@ const AddContest = () => {
               <legend className="font-semibold">Task Instruction</legend>
               <textarea
                 type="text"
+                rows={5}
                 {...register("contestTaskInstruction", { required: true })}
                 className="border border-gray-300 w-full p-2 focus:ring-2  rounded-sm focus:ring-indigo-400 focus:outline-0"
               />

@@ -1,5 +1,6 @@
 import React from "react";
 import PopularContest from "./PopularContest";
+import WinnerAdvertisement from "./winnerAdvertisement";
 
 const Home = () => {
   return (
@@ -8,6 +9,9 @@ const Home = () => {
 
       {/* 2 */}
       <PopularContest />
+
+      {/* 3 */}
+      <WinnerAdvertisement />
     </div>
   );
 };

@@ -34,7 +34,7 @@ const Countdown = ({ contestDeadline }) => {
   return (
     <p className="">
       Deadline end in <br />
-      <span className="text-3xl font-bold">
+      <span className="text-3xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
         {timeLeft.days}d: {timeLeft.hours}h: {timeLeft.minutes}m :{" "}
         {timeLeft.seconds}s
       </span>

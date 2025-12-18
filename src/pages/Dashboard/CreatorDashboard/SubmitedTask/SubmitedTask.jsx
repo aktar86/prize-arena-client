@@ -2,21 +2,43 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router";
 import useAxios from "../../../../hooks/useAxios";
+import { toast } from "react-toastify";
 
 const SubmitedTask = () => {
   const { id } = useParams();
   const axiosSecure = useAxios();
   console.log(id);
 
-  const { data: submitTasks = [] } = useQuery({
+  const { refetch, data: submitTasks = [] } = useQuery({
     queryKey: ["submit-tasks", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/submit-task/${id}`);
       return res.data;
     },
   });
-
   console.log(submitTasks);
+
+  const handleDeclareWinner = (task) => {
+    console.log(task);
+    const winnerInfo = {
+      name: task.name,
+      email: task.email,
+      photoUrl: task.photoUrl,
+      userUid: task.userId,
+    };
+
+    console.log(winnerInfo);
+
+    axiosSecure
+      .patch(`/contest/declare-winner/${id}`, winnerInfo)
+      .then((res) => {
+        refetch();
+        console.log(res.data);
+        if (res.data.modifiedCount) {
+          toast.success("winner declared successfully");
+        }
+      });
+  };
   return (
     <div>
       <h1> My Submitted Task : {submitTasks.length}</h1>
@@ -52,7 +74,10 @@ const SubmitedTask = () => {
                     <p>{new Date(task.submitAt).toLocaleTimeString()}</p>
                   </td>
                   <td>
-                    <button className="bg-linear-to-r from-primary to-secondary btn text-white">
+                    <button
+                      onClick={() => handleDeclareWinner(task)}
+                      className="bg-linear-to-r from-primary to-secondary btn text-white"
+                    >
                       Winner
                     </button>
                   </td>
