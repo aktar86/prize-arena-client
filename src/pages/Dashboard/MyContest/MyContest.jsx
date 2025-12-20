@@ -22,8 +22,6 @@ const MyContest = () => {
     enabled: !!user?.email,
   });
 
-
-
   const handleDeleteContest = (contest) => {
     Swal.fire({
       title: "Are you sure?",

@@ -1,4 +1,5 @@
 import {
+  BarChart3,
   CheckCircle,
   Home,
   ListCollapse,
@@ -67,42 +68,62 @@ const DashboardLayout = () => {
             {/*  user route  */}
             <li>
               <NavLink
-                to="/dashboard/my-participated-contest"
+                to="/dashboard/leaderboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Participated Contest"
+                data-tip="Leaderboard"
               >
                 {/* icon */}
-                <Trophy />
-                <span className="is-drawer-close:hidden">
-                  My Participated Contest
-                </span>
+                <BarChart3 />
+                <span className="is-drawer-close:hidden">Leaderboard</span>
               </NavLink>
             </li>
+            {role === "user" && (
+              <>
+                {/*  user route  */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-participated-contest"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Participated Contest"
+                  >
+                    {/* icon */}
+                    <Trophy />
+                    <span className="is-drawer-close:hidden">
+                      My Participated Contest
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
-            {/*  creator route my contest */}
-            <li>
-              <NavLink
-                to="/dashboard/my-contest"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Contest"
-              >
-                {/* icon */}
-                <Trophy />
-                <span className="is-drawer-close:hidden">My Contest</span>
-              </NavLink>
-            </li>
-            {/* add contest page */}
-            <li>
-              <NavLink
-                to="/dashboard/add-contest"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Contest"
-              >
-                {/* icon */}
-                <Sparkles />
-                <span className="is-drawer-close:hidden">Add Contest</span>
-              </NavLink>
-            </li>
+            {role === "creator" && (
+              <>
+                {/*  creator route my contest */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-contest"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Contest"
+                  >
+                    {/* icon */}
+                    <Trophy />
+                    <span className="is-drawer-close:hidden">My Contest</span>
+                  </NavLink>
+                </li>
+                {/* add contest page */}
+                <li>
+                  <NavLink
+                    to="/dashboard/add-contest"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Contest"
+                  >
+                    {/* icon */}
+                    <Sparkles />
+                    <span className="is-drawer-close:hidden">Add Contest</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/*  admin route   */}
 

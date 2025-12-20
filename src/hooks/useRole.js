@@ -7,14 +7,14 @@ const useRole = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxios();
 
-  const { isLoading: roleLoading, data: role } = useQuery({
+  const { isLoading: roleLoading, data: role = "user" } = useQuery({
     queryKey: ["user-role", user?.email],
 
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       console.log("Fetching for:", user?.email);
       try {
-        const res = await axiosSecure.get(`/users/${user?.email}`);
+        const res = await axiosSecure.get(`/users/${user.email}`);
         console.log("Hook response data:", res.data);
         return res.data?.role;
       } catch (error) {
@@ -25,7 +25,7 @@ const useRole = () => {
   });
 
   console.log(role);
-  return { roleLoading, role: role || "user" };
+  return { roleLoading, role };
 };
 
 export default useRole;

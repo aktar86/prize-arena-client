@@ -6,19 +6,19 @@ import { useNavigate } from "react-router";
 import { CloudSnow } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 
-const PopularContest = () => {
+const PopularContest = ({ contestsTrim }) => {
   const { darkMode } = useAuth();
   const axiosSecure = useAxios();
   const nagvigate = useNavigate();
-  const { data: contests = [] } = useQuery({
-    queryKey: ["popular-contest", "Confirmed"],
+
+  const { data: popularContests = [] } = useQuery({
+    queryKey: ["popular-contests"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/contests?status=Confirmed");
+      const res = await axiosSecure.get("/contests/popular-contests");
       return res.data;
     },
   });
-
-  const contestsTrim = contests.slice(0, 6);
+  // console.log(popularContests);
 
   return (
     <div className={`${darkMode ? "bg-black text-white" : "bg-white"} py-10`}>

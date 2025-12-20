@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import axios from "axios";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
@@ -12,6 +12,7 @@ const UpdateContest = () => {
   const [deadline, setDeadline] = useState();
   const axiosSecure = useAxios();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const categories = [
     "Logo Design",
@@ -41,6 +42,7 @@ const UpdateContest = () => {
       axiosSecure.patch(`/contests/${id}`, updateInfo).then((res) => {
         console.log(res.data);
         if (res.data.modifiedCount) {
+          navigate("/dashboard/my-contest");
           Swal.fire({
             position: "center",
             icon: "success",

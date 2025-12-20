@@ -15,6 +15,7 @@ const AddContest = () => {
   const {
     register,
     handleSubmit,
+    reset,
     setValue,
     formState: { errors },
   } = useForm();
@@ -53,11 +54,12 @@ const AddContest = () => {
 
       axiosSecure.post("/contests", updatedData).then((res) => {
         if (res.data.insertedId) {
+          reset();
           navigate("/dashboard/my-contest");
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Contest Added Successfully. Please, wait for admin apprval",
+            text: "Contest Added Successfully. Please, wait for admin apprval",
             showConfirmButton: true,
             timer: 2000,
           });

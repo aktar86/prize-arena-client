@@ -20,6 +20,10 @@ import MyParticipatedContest from "../pages/Dashboard/UserDashboard/MyParticipat
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payment/PaymentCancel";
 import UpdateContest from "../pages/Dashboard/MyContest/UpdateContest";
+import AdminRoute from "../privetRoute/AdminRoute";
+import CreatorRoute from "../privetRoute/CreatorRoute";
+import UserRoute from "../privetRoute/UserRoute";
+import LeaderBoard from "../pages/Dashboard/LeaderBoard/LeaderBoard";
 
 const router = createBrowserRouter([
   {
@@ -78,36 +82,69 @@ const router = createBrowserRouter([
       </PrivetRoute>
     ),
     children: [
+      // common route
+      {
+        path: "leaderboard",
+        Component: LeaderBoard,
+      },
       // user area
       {
         path: "my-participated-contest",
-        Component: MyParticipatedContest,
+        element: (
+          <UserRoute>
+            <MyParticipatedContest></MyParticipatedContest>
+          </UserRoute>
+        ),
       },
       // creator area
       {
         path: "add-contest",
-        Component: AddContest,
+        element: (
+          <CreatorRoute>
+            <AddContest></AddContest>
+          </CreatorRoute>
+        ),
       },
       {
         path: "my-contest",
-        Component: MyContest,
+        element: (
+          <CreatorRoute>
+            <MyContest></MyContest>
+          </CreatorRoute>
+        ),
       },
       {
         path: "update-contest/:id",
-        Component: UpdateContest,
+        element: (
+          <CreatorRoute>
+            <UpdateContest></UpdateContest>
+          </CreatorRoute>
+        ),
       },
       // admin area
       {
         path: "approve-creators",
-        Component: ApproveCreators,
+        element: (
+          <AdminRoute>
+            <ApproveCreators></ApproveCreators>
+          </AdminRoute>
+        ),
       },
       {
         path: "user-management",
-        Component: UserManagement,
+        element: (
+          <AdminRoute>
+            <UserManagement></UserManagement>
+          </AdminRoute>
+        ),
       },
       {
         path: "contest-management",
-        Component: ContestManagement,
+        element: (
+          <AdminRoute>
+            <ContestManagement></ContestManagement>
+          </AdminRoute>
+        ),
       },
       {
         path: "submited-tasks/:id",

@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
+import BannerImag from "../../assets/banner-img.png";
 
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
@@ -79,9 +80,9 @@ const Register = () => {
       });
   };
   return (
-    <div className="flex gap-4 h-screen bg-blue-50 ">
+    <div className="flex gap-4 h-screen bg-primary/10 ">
       {/* form  */}
-      <div className="flex-1 border flex justify-center items-center ">
+      <div className="flex-1  flex justify-center items-center ">
         <div className="shadow-xl bg-gray-50 mx-auto w-full max-w-md p-8 rounded-lg ">
           <div className="mb-5">
             <p>Welcome to</p>
@@ -186,8 +187,12 @@ const Register = () => {
         </div>
       </div>
       {/* img */}
-      <div className="flex-1 border bg-green-500 hidden lg:flex">
-        <h1>Image text </h1>
+      <div className="flex-1 bg-secondary hidden lg:flex justify-center items-center">
+        <img
+          className="max-w-200 max-h-150"
+          src={BannerImag}
+          alt={BannerImag}
+        />
       </div>
     </div>
   );
