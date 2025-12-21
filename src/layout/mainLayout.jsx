@@ -7,9 +7,13 @@ import Loder from "../components/Loder/Loder";
 import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
-  const { loading } = useAuth();
+  const { darkMode, loading } = useAuth();
   return (
-    <div className="flex flex-col min-h-screen">
+    <div
+      className={`flex ${
+        darkMode ? "bg-black text-white" : "bg-white"
+      } flex-col min-h-screen`}
+    >
       {loading ? (
         <Loder />
       ) : (

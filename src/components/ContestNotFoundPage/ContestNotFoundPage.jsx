@@ -9,7 +9,12 @@ const ContestNotFoundPage = () => {
         No contest <span className="text-secondary">found!</span>
       </p>
 
-      <button onClick={() => navigate("/")}>Go Back</button>
+      <button
+        className="bg-linear-to-r from-primary to-secondary px-5 py-2  text-white mt-5"
+        onClick={() => navigate("/")}
+      >
+        Go Back
+      </button>
     </div>
   );
 };

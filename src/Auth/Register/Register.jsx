@@ -34,7 +34,7 @@ const Register = () => {
         const formData = new FormData();
         formData.append("image", profileImage);
 
-        const image_API_URL = `https://api.imgbb.com/1/upload?${
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${
           import.meta.env.VITE_IMAGE_HOST
         }`;
 

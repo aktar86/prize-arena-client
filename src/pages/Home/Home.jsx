@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import BannerSectionTwo from "./BannerSectionTwo";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import FeatureSection from "../../components/FeatureSection/FeatureSection";
 
 const Home = () => {
   const { darkMode } = useAuth();
@@ -41,6 +42,9 @@ const Home = () => {
 
       {/* 3 */}
       <WinnerAdvertisement />
+
+      {/* 4 */}
+      <FeatureSection />
     </div>
   );
 };

@@ -1,11 +1,16 @@
 import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import BannerImag from "../../assets/banner-img.png";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signInUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,7 +20,21 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleUserRegister = (data) => {
-    console.log("form Data:", data);
+    signInUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state || "/");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: "Login Successfully",
+          showConfirmButton: true,
+          timer: 2000,
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   return (
     <div className="flex gap-4 h-screen bg-primary/10 ">

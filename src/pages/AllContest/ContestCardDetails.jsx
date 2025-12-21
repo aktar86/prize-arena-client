@@ -64,6 +64,7 @@ const ContestCardDetails = () => {
 
   const hasSubmitted = submissionData?.isSubmitted || false;
   console.log(hasSubmitted);
+  if (isLoading) return <Loder />;
   if (!contest) return <ContestNotFoundPage />;
 
   const {

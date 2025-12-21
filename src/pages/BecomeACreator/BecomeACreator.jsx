@@ -26,7 +26,7 @@ const BecomeACreator = () => {
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Registration submitted! Wait for admin approval.", {
-            onClose: () => navigate("/dashboard/approve-creators"),
+            onClose: () => navigate("/dashboard/leaderboard"),
             autoClose: 2000, // 2 sec
           });
         }
