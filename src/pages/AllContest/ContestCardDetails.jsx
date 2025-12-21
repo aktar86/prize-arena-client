@@ -48,6 +48,7 @@ const ContestCardDetails = () => {
     enabled: !!id && !!user?.uid,
   });
   const hasParticipated = participation?.participated ?? false;
+  console.log(hasParticipated);
 
   //submit-task for status check and btn disable
   const { data: submissionData, refetch } = useQuery({
@@ -150,7 +151,11 @@ const ContestCardDetails = () => {
     handleModalSubmit(contest, data);
   };
 
+  const isClosedByStatus = status === "Closed";
   const isContestEnd = new Date(contestDeadline) < new Date();
+  const isRegistrationDisabled =
+    hasParticipated || isContestEnd || isClosedByStatus;
+  console.log(isRegistrationDisabled);
 
   return (
     <>
@@ -306,6 +311,7 @@ const ContestCardDetails = () => {
                       <img
                         src={contest.winner?.photoUrl}
                         alt={contest.winner?.photoUrl}
+                        referrerPolicy="no-referrer"
                         className="max-w-20 rounded-full object-cover flex-1"
                       />
                       <div className="flex-1">
@@ -317,19 +323,24 @@ const ContestCardDetails = () => {
                     </div>
                   </div>
                   <div className="space-y-5">
+                    {/* register button */}
                     <button
                       onClick={() => hanleRegisterAndPayment(contest)}
-                      disabled={hasParticipated || isContestEnd}
-                      className={`bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white cursor-pointer ${
-                        hasParticipated || isContestEnd
+                      disabled={isRegistrationDisabled}
+                      className={`bg-linear-to-r from-primary to-secondary w-full py-2 text-xl text-white ${
+                        isRegistrationDisabled
                           ? "opacity-50 cursor-not-allowed"
                           : "cursor-pointer"
-                      } `}
+                      }`}
                     >
-                      {hasParticipated || isContestEnd
+                      {hasParticipated
                         ? "Already Registered"
+                        : isClosedByStatus || isContestEnd
+                        ? "Registration Closed"
                         : `Register & Pay ${contestEntryFee}`}
                     </button>
+
+                    {/* task button */}
                     <button
                       disabled={!hasParticipated || hasSubmitted}
                       className={` py-2 w-full text-xl bg-gray-300 cursor-pointer ${

@@ -70,7 +70,9 @@ const AddContest = () => {
 
   return (
     <div>
-      <h1>Add contest form</h1>
+      <h1 className="text-center my-10 text-3xl font-bold text-primary">
+        Add contest form
+      </h1>
 
       <div className="border border-gray-300 shadow-2xl p-10 w-full max-w-xl mx-auto rounded-xl">
         <form onSubmit={handleSubmit(handleAddContestForm)}>

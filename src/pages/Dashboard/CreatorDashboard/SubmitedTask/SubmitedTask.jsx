@@ -1,25 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router";
 import useAxios from "../../../../hooks/useAxios";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const SubmitedTask = () => {
   const { id } = useParams();
   const axiosSecure = useAxios();
-  console.log(id);
+  const queryClient = useQueryClient();
 
-  const { refetch, data: submitTasks = [] } = useQuery({
+  const { data: submitTasks = [] } = useQuery({
     queryKey: ["submit-tasks", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/submit-task/${id}`);
       return res.data;
     },
   });
-  console.log(submitTasks);
+
+  const { data: contest } = useQuery({
+    queryKey: ["contest-details", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/contests/${id}`);
+      return res.data;
+    },
+  });
+  const isClosed = contest?.status === "Closed";
 
   const handleDeclareWinner = (task) => {
-    console.log(task);
     const winnerInfo = {
       name: task.name,
       email: task.email,
@@ -27,15 +34,20 @@ const SubmitedTask = () => {
       userUid: task.userId,
     };
 
-    console.log(winnerInfo);
-
     axiosSecure
       .patch(`/contest/declare-winner/${id}`, winnerInfo)
       .then((res) => {
-        refetch();
-        console.log(res.data);
-        if (res.data.modifiedCount) {
-          toast.success("winner declared successfully");
+        if (res.data.modifiedCount > 0) {
+          queryClient.invalidateQueries(["contest-details", id]);
+          queryClient.invalidateQueries(["submit-tasks", id]);
+
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: "Winner declared successfully",
+            showConfirmButton: true,
+            timer: 2500,
+          });
         }
       });
   };
@@ -76,9 +88,14 @@ const SubmitedTask = () => {
                   <td>
                     <button
                       onClick={() => handleDeclareWinner(task)}
-                      className="bg-linear-to-r from-primary to-secondary btn text-white"
+                      disabled={isClosed}
+                      className={`btn text-white ${
+                        isClosed
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-linear-to-r from-primary to-secondary"
+                      }`}
                     >
-                      Winner
+                      {isClosed ? "Winner Declared" : "Winner"}
                     </button>
                   </td>
                 </tr>

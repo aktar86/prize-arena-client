@@ -3,7 +3,6 @@ import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import imageIcon from "../../assets/user.png";
 
 // Import Swiper styles
 import "swiper/css";

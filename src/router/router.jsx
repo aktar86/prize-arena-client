@@ -24,6 +24,8 @@ import AdminRoute from "../privetRoute/AdminRoute";
 import CreatorRoute from "../privetRoute/CreatorRoute";
 import UserRoute from "../privetRoute/UserRoute";
 import LeaderBoard from "../pages/Dashboard/LeaderBoard/LeaderBoard";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -54,9 +56,15 @@ const router = createBrowserRouter([
         path: "be-a-creator",
         element: (
           <PrivetRoute>
-            <BecomeACreator></BecomeACreator>
+            <UserRoute>
+              <BecomeACreator></BecomeACreator>
+            </UserRoute>
           </PrivetRoute>
         ),
+      },
+      {
+        path: "about-us",
+        Component: AboutUs,
       },
     ],
   },
@@ -159,6 +167,10 @@ const router = createBrowserRouter([
         Component: PaymentCancel,
       },
     ],
+  },
+  {
+    path: "*",
+    Component: ErrorPage,
   },
 ]);
 

@@ -5,11 +5,14 @@ import "./NavBar.css";
 
 import useAuth from "../../hooks/useAuth";
 import Logo from "../Logo/Logo";
+import useRole from "../../hooks/useRole";
 
 const NavBar = () => {
   const { user, logOut, darkMode, toggleDarkMode } = useAuth();
   const [open, setOpen] = useState(false);
   const { location } = useLocation();
+
+  const { role } = useRole();
 
   const handleSignOutUser = () => {
     logOut()
@@ -28,8 +31,16 @@ const NavBar = () => {
         <NavLink to="/all-contests">All Contests</NavLink>
       </li>
       <li>
-        <NavLink to="/be-a-creator">Be a Creator</NavLink>
+        <NavLink to="/about-us">About Us</NavLink>
       </li>
+      {role === "user" && (
+        <>
+          {" "}
+          <li>
+            <NavLink to="/be-a-creator">Be a Creator</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
