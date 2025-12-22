@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
   baseURL: "https://prize-arena-server-api.vercel.app",
+  // baseURL: "http://localhost:4000",
 });
 
 const useAxios = () => {

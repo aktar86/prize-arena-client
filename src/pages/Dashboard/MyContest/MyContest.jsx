@@ -11,6 +11,8 @@ const MyContest = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxios();
 
+  console.log(user?.email);
+
   const { refetch, data: creatorContests = [] } = useQuery({
     queryKey: ["contests", user?.email],
     queryFn: async () => {
@@ -21,6 +23,8 @@ const MyContest = () => {
     },
     enabled: !!user?.email,
   });
+
+  console.log(creatorContests);
 
   const handleDeleteContest = (contest) => {
     Swal.fire({
