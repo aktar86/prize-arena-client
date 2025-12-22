@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "prize-arena-9d7de"
-  }
+    "default": "prize-arena-9d7de",
+    "home": "prize-arena-9d7de"
+  },
+  "targets": {},
+  "etags": {}
 }

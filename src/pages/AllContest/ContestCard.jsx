@@ -11,6 +11,7 @@ const ContestCard = ({ contest }) => {
     contestTitle,
     contestDescription,
     participantsCount,
+    status,
   } = contest;
 
   const descriptionTrim =
@@ -36,8 +37,21 @@ const ContestCard = ({ contest }) => {
           <span className="font-bold">Description: </span>
           {descriptionTrim}
         </p>
-        <p className="text-orange-500  py-1 text-left">
-          Participate Count: {participantsCount}
+      </div>
+      <div className="flex items-center gap-5">
+        <p className="  py-1 text-left flex-1">
+          Participate Count:{" "}
+          <span className="text-orange-500">{participantsCount}</span>
+        </p>
+        <p className="text-orange-500  py-1 text-right flex-1">
+          Status:{" "}
+          <span
+            className={`${
+              status === "Closed" ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {status}
+          </span>
         </p>
       </div>
       {/* card btn */}

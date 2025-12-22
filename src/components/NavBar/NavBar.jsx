@@ -41,6 +41,12 @@ const NavBar = () => {
           </li>
         </>
       )}
+      <li className="md:hidden">
+        <NavLink to="/register">Register</NavLink>
+      </li>
+      <li className="md:hidden">
+        <NavLink to="/login">Login</NavLink>
+      </li>
     </>
   );
   return (
@@ -55,8 +61,8 @@ const NavBar = () => {
           <span onClick={() => setOpen(!open)} className="md:hidden">
             <span>{user && open ? <X /> : <Menu />}</span>
             <ul
-              className={`absolute px-5 bg-white ${
-                open ? "top-15" : "-top-50"
+              className={`absolute px-5 space-y-2 bg-secondary text-white p-5 ${
+                open ? "top-15" : "-top-70"
               }`}
             >
               {links}
@@ -68,7 +74,7 @@ const NavBar = () => {
         </div>
 
         {/* center part  */}
-        <div className="hidden lg:flex">
+        <div className="hidden md:flex">
           <nav>
             <ul className="flex gap-5 font-semibold">{links}</ul>
           </nav>
@@ -136,7 +142,7 @@ const NavBar = () => {
               </div>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex items-center  gap-2">
               {/* dark light  when logout */}
               <div>
                 <button
@@ -148,21 +154,21 @@ const NavBar = () => {
               </div>
               <Link
                 to="/register"
-                className={`${
-                  location === "/register" ? "text-primary" : "text-primary"
+                className={` bg-linear-to-r from-primary to-secondary hidden md:flex  rounded-full px-5 py-2 ${
+                  location === "/register" ? "text-white" : "text-white"
                 }`}
               >
                 Register
               </Link>
               {/* <span className="text-white">/</span> */}
-              {/* <Link
+              <Link
                 to="/login"
-                className={`${
-                  location === "/login" ? "text-primary" : "text-white"
+                className={` bg-linear-to-r from-primary to-secondary hidden md:flex   rounded-full  px-5 py-2 ${
+                  location === "/login" ? "  text-white" : "text-white"
                 }`}
               >
                 Login
-              </Link> */}
+              </Link>
             </div>
           )}
         </div>
@@ -172,3 +178,11 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+// admin@ph.com
+//123456aA@
+//role: admin
+
+//creator@aktar.com
+//123456aA@
+//role:Creator

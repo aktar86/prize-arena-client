@@ -151,7 +151,15 @@ const Register = () => {
                 <div className="relative">
                   <input
                     type={`${showPassword ? "text" : "password"}`}
-                    {...register("password", { required: true })}
+                    {...register("password", {
+                      required: "Password is required",
+                      pattern: {
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+                        message:
+                          "Password must include uppercase, lowercase & special character",
+                      },
+                    })}
                     className="w-full border border-gray-300 px-3 py-2 outline-0 focus:ring-2 focus:ring-primary/70 rounded-sm"
                     placeholder="Enter Your Password"
                   />
@@ -162,8 +170,12 @@ const Register = () => {
                     {showPassword ? <EyeOff /> : <Eye />}
                   </button>
                 </div>
-                {errors.password?.type === "required" && (
-                  <p className="text-red-500 text-xs"> Password is required</p>
+
+                {/* Dynamic Error Message */}
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
