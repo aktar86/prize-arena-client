@@ -6,6 +6,7 @@ import {
   Settings,
   Sparkles,
   Trophy,
+  User,
   UserCircle,
   UserPlus,
   Users,
@@ -80,6 +81,20 @@ const DashboardLayout = () => {
             {role === "user" && (
               <>
                 {/*  user route  */}
+                {/* My Profile */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-profile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                  >
+                    {/* icon */}
+                    <User />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+
+                {/* My participated Contest */}
                 <li>
                   <NavLink
                     to="/dashboard/my-participated-contest"

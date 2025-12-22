@@ -1,10 +1,10 @@
 import React from "react";
-import useRole from "../../../hooks/useRole";
+// import useRole from "../../../hooks/useRole";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 
 const LeaderBoard = () => {
-  const { role } = useRole();
+  // const { role } = useRole();
   const axiosSecure = useAxios();
 
   const { data: users = [] } = useQuery({

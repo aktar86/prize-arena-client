@@ -26,6 +26,7 @@ import UserRoute from "../privetRoute/UserRoute";
 import LeaderBoard from "../pages/Dashboard/LeaderBoard/LeaderBoard";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,14 @@ const router = createBrowserRouter([
         Component: LeaderBoard,
       },
       // user area
+      {
+        path: "my-profile",
+        element: (
+          <UserRoute>
+            <MyProfile></MyProfile>
+          </UserRoute>
+        ),
+      },
       {
         path: "my-participated-contest",
         element: (
