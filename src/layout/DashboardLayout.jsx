@@ -3,6 +3,7 @@ import {
   CheckCircle,
   Home,
   ListCollapse,
+  Medal,
   Settings,
   Sparkles,
   Trophy,
@@ -91,6 +92,21 @@ const DashboardLayout = () => {
                     {/* icon */}
                     <User />
                     <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+
+                {/* My Profile */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-winning-contests"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Winning Contests"
+                  >
+                    {/* icon */}
+                    <Medal />
+                    <span className="is-drawer-close:hidden">
+                      My Winning Contests
+                    </span>
                   </NavLink>
                 </li>
 

@@ -27,6 +27,7 @@ import LeaderBoard from "../pages/Dashboard/LeaderBoard/LeaderBoard";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile/MyProfile";
+import MyWinningContest from "../pages/Dashboard/UserDashboard/MyWinningContest/MyWinningContest";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,14 @@ const router = createBrowserRouter([
         element: (
           <UserRoute>
             <MyProfile></MyProfile>
+          </UserRoute>
+        ),
+      },
+      {
+        path: "my-winning-contests",
+        element: (
+          <UserRoute>
+            <MyWinningContest></MyWinningContest>
           </UserRoute>
         ),
       },
