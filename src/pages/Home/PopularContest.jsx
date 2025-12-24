@@ -1,24 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import useAxios from "../../hooks/useAxios";
 import ContestCard from "../AllContest/ContestCard";
 import { useNavigate } from "react-router";
-import { CloudSnow } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 
 const PopularContest = ({ contestsTrim }) => {
   const { darkMode } = useAuth();
-  const axiosSecure = useAxios();
   const nagvigate = useNavigate();
-
-  const { data: popularContests = [] } = useQuery({
-    queryKey: ["popular-contests"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/contests/popular-contests");
-      return res.data;
-    },
-  });
-  // console.log(popularContests);
 
   return (
     <div className={`${darkMode ? "bg-black text-white" : "bg-white"} py-10`}>

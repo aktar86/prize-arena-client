@@ -4,16 +4,21 @@ import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
+import Loder from "../../../components/Loder/Loder";
 
 const MyContest = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxios();
 
   console.log(user?.email);
 
-  const { refetch, data: creatorContests = [] } = useQuery({
+  const {
+    isLoading,
+    refetch,
+    data: contestsData = {},
+  } = useQuery({
     queryKey: ["contests", user?.email],
     queryFn: async () => {
       if (!user?.email) return [];
@@ -24,7 +29,9 @@ const MyContest = () => {
     enabled: !!user?.email,
   });
 
-  console.log(creatorContests);
+  const creatorContests = contestsData.contests || [];
+
+  console.log("my contest:", creatorContests);
 
   const handleDeleteContest = (contest) => {
     Swal.fire({
@@ -50,6 +57,8 @@ const MyContest = () => {
       }
     });
   };
+
+  if (isLoading) <Loder />;
 
   return (
     <div>
@@ -112,7 +121,7 @@ const MyContest = () => {
                       to={`/dashboard/submited-tasks/${contest._id}`}
                       className="btn btn-squire bg-emerald-500 hover:bg-emerald-600 text-white"
                     >
-                      <FaMagnifyingGlass />
+                      <FaMagnifyingGlass /> See Submission
                     </Link>
                   )}
                 </td>

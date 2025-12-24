@@ -7,13 +7,15 @@ import Swal from "sweetalert2";
 // admin route
 const ContestManagement = () => {
   const axiosSecure = useAxios();
-  const { refetch, data: contests = [] } = useQuery({
+  const { refetch, data: contestData = {} } = useQuery({
     queryKey: ["contests"],
     queryFn: async () => {
       const res = await axiosSecure.get("/contests");
       return res.data;
     },
   });
+
+  const contests = contestData.contests || [];
 
   const updateContest = (id, status, titleText) => {
     const updateStatus = { status: status };

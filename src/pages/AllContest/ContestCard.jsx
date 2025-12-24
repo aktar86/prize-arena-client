@@ -4,7 +4,6 @@ import { Link } from "react-router";
 
 const ContestCard = ({ contest }) => {
   const { darkMode } = useAuth();
-  console.log(contest);
   const {
     _id: id,
     contestImage,

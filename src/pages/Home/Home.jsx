@@ -13,7 +13,7 @@ const Home = () => {
   const axiosSecure = useAxios();
   const [searchText, setSearchText] = useState("");
 
-  const { data: contests = [] } = useQuery({
+  const { data: contestsData = {} } = useQuery({
     queryKey: ["popular-contest", "Confirmed", searchText],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -23,9 +23,9 @@ const Home = () => {
     },
   });
 
-  console.log(contests);
+  const contests = contestsData.contests || [];
+
   const contestsTrim = contests.slice(0, 6);
-  // contestsTrim = { contestsTrim };
 
   return (
     <div
