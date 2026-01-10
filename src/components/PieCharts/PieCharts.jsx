@@ -44,7 +44,7 @@ const PieCharts = () => {
   ];
 
   return (
-    <div className="w-full bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+    <div className="w-full bg-primary/10 p-6 rounded-xl shadow-sm border border-gray-100">
       <h2 className="text-xl font-bold  mb-6 text-primary">
         Contest Distribution by Category
       </h2>

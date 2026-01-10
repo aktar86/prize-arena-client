@@ -129,7 +129,10 @@ const MyProfile = () => {
                 value="Save Changes"
                 className="btn flex-1 w-full rounded-full mt-5 bg-green-500 text-white"
               />
-              <button onClick={() => setIsEditing(false) } className="btn flex-1 w-full  rounded-full mt-5 bg-red-500 text-white">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="btn flex-1 w-full  rounded-full mt-5 bg-red-500 text-white"
+              >
                 Cancel
               </button>
             </div>

@@ -4,11 +4,11 @@ import PieCharts from "../../../components/PieCharts/PieCharts";
 const UsersTable = ({ usersData = [] }) => {
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex gap-4  ">
         <div className="flex-2">
           <table className="table">
             {/* head */}
-            <thead>
+            <thead className="text-white">
               <tr>
                 <th>SL</th>
                 <th>Name</th>

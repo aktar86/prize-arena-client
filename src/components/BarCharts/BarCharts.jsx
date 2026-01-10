@@ -1,10 +1,23 @@
 import React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
+import useAxios from "../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
-const BarCharts = ({ users = [] }) => {
+const BarCharts = () => {
+  const axiosSecure = useAxios();
+  const { data: users = [] } = useQuery({
+    queryKey: ["users", "winners"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/wins`);
+      return res.data;
+    },
+  });
+
+  console.log(users);
+
   // 1. Data processing: Top 5 ba 10 jon user-ke nite paren leaderboard-er jonno
   // Dhore nichchi user object-e 'winCount' (ba apnar DB te thaka field) ache.
-  const chartData = users.slice(0, 7).map((user) => ({
+  const chartData = users.slice(0, 5).map((user) => ({
     name: user.displayName
       ? user.displayName.split(" ")[0].toUpperCase()
       : "Unknown",
@@ -12,8 +25,8 @@ const BarCharts = ({ users = [] }) => {
   }));
 
   return (
-    <div className="w-full bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold text-secondary mb-4">
+    <div className="w-full bg-gray-300 p-4  rounded-lg shadow-sm">
+      <h2 className="text-xl font-bold text-primary mb-4">
         Top Winners Performance
       </h2>
 
