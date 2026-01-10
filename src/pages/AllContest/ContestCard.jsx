@@ -20,12 +20,12 @@ const ContestCard = ({ contest }) => {
 
   return (
     <div
-      className={`p-3 flex flex-col shadow-sm hover:scale-105 transform-transition ease-in-out duration-300 ${
+      className={`p-3 flex flex-col shadow-sm hover:scale-102 transform-transition ease-in-out duration-300 ${
         darkMode ? "bg-gray-800 text-white" : "bg-white"
       }`}
     >
       <img
-        className="w-full object-cover h-[250px]"
+        className="w-full object-cover  h-[250px] "
         src={contestImage}
         alt={contestImage}
       />
