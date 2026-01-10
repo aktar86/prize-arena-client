@@ -11,7 +11,7 @@ const AllContest = () => {
 
   const [activeTab, setActiveTab] = useState("All");
   const [currentPage, setCurrentPage] = useState(1); // page starts from 1
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
 
   const { isLoading, data = {} } = useQuery({
     queryKey: ["approved-contest", currentPage],
