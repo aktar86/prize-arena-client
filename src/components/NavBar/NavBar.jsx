@@ -1,5 +1,5 @@
 import { Menu, Moon, Sun, X } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import "./NavBar.css";
 
@@ -10,8 +10,7 @@ import useRole from "../../hooks/useRole";
 const NavBar = () => {
   const { user, logOut, darkMode, toggleDarkMode } = useAuth();
   const [open, setOpen] = useState(false);
-  const { location } = useLocation();
-
+  const location = useLocation();
   const { role } = useRole();
 
   const handleSignOutUser = () => {
@@ -34,12 +33,9 @@ const NavBar = () => {
         <NavLink to="/about-us">About Us</NavLink>
       </li>
       {role === "user" && (
-        <>
-          {" "}
-          <li>
-            <NavLink to="/be-a-creator">Be a Creator</NavLink>
-          </li>
-        </>
+        <li>
+          <NavLink to="/be-a-creator">Be a Creator</NavLink>
+        </li>
       )}
       <li className="md:hidden">
         <NavLink to="/register">Register</NavLink>
@@ -49,17 +45,18 @@ const NavBar = () => {
       </li>
     </>
   );
+
   return (
     <div
-      className={` px-2  md:px-0  ${
-        darkMode ? " bg-black text-white" : "bg-secondary/10 "
+      className={`fixed top-0 z-50 w-full px-2 md:px-0 border-b-2 border-gray-100 ${
+        darkMode ? "bg-black text-white" : "bg-white"
       }`}
     >
       <div className="max-w-[1440px] mx-auto flex justify-between items-center py-5">
-        {/* first part */}
+        {/* Logo and Mobile Menu */}
         <div className="flex items-center">
           <span onClick={() => setOpen(!open)} className="md:hidden">
-            <span>{user && open ? <X /> : <Menu />}</span>
+            <span>{open ? <X /> : <Menu />}</span>
             <ul
               className={`absolute px-5 space-y-2 bg-secondary text-white p-5 ${
                 open ? "top-15" : "-top-70"
@@ -69,35 +66,34 @@ const NavBar = () => {
             </ul>
           </span>
           <span className="">
-            <Logo></Logo>
+            <Logo />
           </span>
         </div>
 
-        {/* center part  */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex">
           <nav>
             <ul className="flex gap-5 font-semibold">{links}</ul>
           </nav>
         </div>
 
-        {/* end part  */}
+        {/* User Actions */}
         <div className="">
           {user ? (
             <div className="flex items-center gap-3">
-              {/* <button className="bg-linear-to-r from-primary to-secondary px-3 py-1 rounded-sm text-white">
-                Create a Contest
-              </button> */}
-              {/* dark light  when logout */}
+              {/* Dark/Light Toggle */}
               <div>
                 <button
                   onClick={toggleDarkMode}
-                  className={` mr-2 ${
+                  className={`mr-2 ${
                     darkMode ? "bg-black text-white" : "text-black"
                   }`}
                 >
-                  {darkMode ? <Sun></Sun> : <Moon></Moon>}
+                  {darkMode ? <Sun /> : <Moon />}
                 </button>
               </div>
+
+              {/* User Dropdown */}
               <div className="dropdown dropdown-end">
                 <div className="relative">
                   <div
@@ -113,13 +109,11 @@ const NavBar = () => {
                       />
                     </div>
                   </div>
-                  {/* Green dot for active user
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div> */}
                 </div>
 
                 <ul
                   tabIndex={0}
-                  className={` ${
+                  className={`${
                     darkMode ? "bg-gray-800" : "bg-white"
                   } mt-3 z-9999 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52`}
                 >
@@ -130,10 +124,14 @@ const NavBar = () => {
                   <li className="py-2 text-xs">
                     <NavLink to="/dashboard/leaderboard">Dashboard</NavLink>
                   </li>
-                  <li className=" mt-1 pt-2">
+                  <li className="mt-1 pt-2">
                     <button
                       onClick={handleSignOutUser}
-                      className="w-full bg-linear-to-r from-primary to-secondary text-white flex justify-center items-center py-2 rounded"
+                      className={`w-full flex items-center justify-center gap-2 py-3 rounded-sm font-bold transition-all duration-300 border ${
+                        darkMode
+                          ? "bg-slate-900 border-slate-800 text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+                          : "bg-slate-50 border-slate-100 text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900"
+                      }`}
                     >
                       Log out
                     </button>
@@ -142,29 +140,32 @@ const NavBar = () => {
               </div>
             </div>
           ) : (
-            <div className="flex items-center  gap-2">
-              {/* dark light  when logout */}
+            <div className="flex items-center gap-2">
+              {/* Dark/Light Toggle */}
               <div>
                 <button
                   onClick={toggleDarkMode}
-                  className={` mr-2 ${darkMode ? " text-white" : "text-black"}`}
+                  className={`mr-2 ${darkMode ? "text-white" : "text-black"}`}
                 >
-                  {darkMode ? <Sun></Sun> : <Moon></Moon>}
+                  {darkMode ? <Sun /> : <Moon />}
                 </button>
               </div>
+
+              {/* Auth Buttons */}
               <Link
                 to="/register"
-                className={` bg-linear-to-r from-primary to-secondary hidden md:flex  rounded-full px-5 py-2 ${
-                  location === "/register" ? "text-white" : "text-white"
+                className={`bg-gradient-to-r from-[#fc466b] to-[#3f5efb] hidden md:flex rounded-full px-5 py-2 ${
+                  location.pathname === "/register"
+                    ? "text-white"
+                    : "text-white"
                 }`}
               >
                 Register
               </Link>
-              {/* <span className="text-white">/</span> */}
               <Link
                 to="/login"
-                className={` bg-linear-to-r from-primary to-secondary hidden md:flex   rounded-full  px-5 py-2 ${
-                  location === "/login" ? "  text-white" : "text-white"
+                className={`bg-gradient-to-r from-[#fc466b] to-[#3f5efb] hidden md:flex rounded-full px-5 py-2 ${
+                  location.pathname === "/login" ? "text-white" : "text-white"
                 }`}
               >
                 Login
@@ -178,11 +179,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-// admin@ph.com
-//123456aA@
-//role: admin
-
-//creator@aktar.com
-//123456aA@
-//role:Creator

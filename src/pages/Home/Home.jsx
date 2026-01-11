@@ -7,6 +7,9 @@ import BannerSectionTwo from "./BannerSectionTwo";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import FeatureSection from "../../components/FeatureSection/FeatureSection";
+import Slider from "./slider";
+import Rewards from "../../components/Rewards/Rewards";
+import UpcomingEvents from "../../components/UpcomingEvents/UpcomingEvents";
 
 const Home = () => {
   const { darkMode } = useAuth();
@@ -33,9 +36,11 @@ const Home = () => {
         darkMode ? "bg-black text-white" : "bg-white"
       }`}
     >
+      {/* slider */}
+      <Slider />
       {/* banner section */}
       {/* <BannerSection /> */}
-      <BannerSectionTwo searchText={searchText} setSearchText={setSearchText} />
+      <BannerSectionTwo setSearchText={setSearchText} />
 
       {/* 2 */}
       <PopularContest contestsTrim={contestsTrim} />
@@ -45,6 +50,11 @@ const Home = () => {
 
       {/* 4 */}
       <FeatureSection />
+
+      {/* 5  */}
+      <Rewards />
+      {/* 6  */}
+      <UpcomingEvents />
     </div>
   );
 };

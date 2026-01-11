@@ -18,11 +18,13 @@ const MainLayout = () => {
         <Loder />
       ) : (
         <>
-          <Header />
-          <div className="flex-1">
-            <Outlet />
+          <div className="overflow-x-hidden">
+            <Header />
+            <div className="flex-1">
+              <Outlet />
+            </div>
+            <Footer />
           </div>
-          <Footer />
           <ToastContainer />
         </>
       )}

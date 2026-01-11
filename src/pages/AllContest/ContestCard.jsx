@@ -56,7 +56,11 @@ const ContestCard = ({ contest }) => {
       {/* card btn */}
       <Link
         to={`/contests/contest-card-details/${id}`}
-        className="w-full py-2 bg-linear-to-r from-primary to-secondary text-white font-semibold flex justify-center items-center "
+        className={`w-full mt-2 flex items-center justify-center gap-2 py-3 rounded-sm font-bold transition-all duration-300 border ${
+          darkMode
+            ? "bg-slate-900 border-slate-800 text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+            : "bg-slate-50 border-slate-100 text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900"
+        }`}
       >
         See Details
       </Link>

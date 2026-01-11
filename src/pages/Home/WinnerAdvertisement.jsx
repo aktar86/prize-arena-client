@@ -74,7 +74,7 @@ const WinnerAdvertisement = () => {
               {/* from-primary to-secondary  */}
               {/* bg-[linear-gradient(45deg,_#3a47d5,_#00d2ff)] */}
               {/*  bg-linear-to-r from-[#3a47d5] to-[#00d2ff] */}
-              <div className="max-w-md bg-linear-to-r from-primary to-secondary text-white flex gap-5 rounded-xl py-10 p-5">
+              <div className="max-w-md bg-linear-to-r from-[#3a47d5] to-[#00d2ff]  text-white flex gap-5 rounded-xl py-10 p-5">
                 <img
                   className="w-30 h-30 object-cover rounded-4xl ring-3 ring-white"
                   src={winner.winner.photoUrl}
