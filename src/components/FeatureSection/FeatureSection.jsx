@@ -44,7 +44,7 @@ const FeatureSection = () => {
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-4xl font-bold">
             Why Join Prize Arena?
           </h2>
           <div className="w-40 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>

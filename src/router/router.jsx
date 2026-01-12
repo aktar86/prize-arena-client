@@ -28,6 +28,7 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile/MyProfile";
 import MyWinningContest from "../pages/Dashboard/UserDashboard/MyWinningContest/MyWinningContest";
+import ContactUs from "../components/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -39,12 +40,12 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
+        path: "contact",
+        Component: ContactUs,
+      },
+      {
         path: "all-contests",
-        element: (
-          <PrivetRoute>
-            <AllContest></AllContest>
-          </PrivetRoute>
-        ),
+        Component: AllContest,
       },
       {
         path: "/contests/contest-card-details/:id",

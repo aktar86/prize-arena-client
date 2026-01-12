@@ -1,3 +1,56 @@
+/* Navigation active link styling */
 nav a.active {
   color: #3f5efb;
+  font-weight: 600;
+}
+
+/* Smooth scrolling enhancement - REMOVED to allow fast scroll to top */
+/* html {
+  scroll-behavior: smooth;
+} */
+
+/* Enhanced smooth scrolling for navigation links only */
+nav a {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for navbar dropdown */
+.mobile-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
+  border-radius: 4px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #e63946, #2d3748);
+}
+
+/* Enhanced dark mode mobile menu scrollbar */
+.dark .mobile-menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dark .mobile-menu::-webkit-scrollbar-track {
+  background: rgba(26, 26, 26, 0.8);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .mobile-menu::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
+  border-radius: 5px;
+  box-shadow: inset 0 0 4px rgba(252, 70, 107, 0.3);
+}
+
+.dark .mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff5577, #4c63d2);
+  box-shadow: 0 0 8px rgba(252, 70, 107, 0.5), inset 0 0 4px rgba(63, 94, 251, 0.3);
 }

@@ -10,10 +10,10 @@ const PopularContest = ({ contestsTrim }) => {
   return (
     <div className={`${darkMode ? "bg-black text-white" : "bg-white"} py-10`}>
       <div>
-        <h1 className="text-3xl font-bold text-center">
+        <h1 className="text-4xl font-bold text-center">
           Popular <span className="text-primary">Contest</span>
         </h1>
-        <p className="md:max-w-7/11 mx-auto text-center">
+        <p className="md:max-w-7/11 mx-auto text-center mt-5">
           Discover our most exciting and highly participated contests. These
           contests attract the highest number of participants, offer great
           rewards, and showcase top creativity and talent from our community.

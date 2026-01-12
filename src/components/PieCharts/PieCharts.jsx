@@ -44,7 +44,7 @@ const PieCharts = () => {
   ];
 
   return (
-    <div className="w-full bg-primary/10 p-6 rounded-xl shadow-sm border border-gray-100">
+    <div className="w-full bg-linear-to-br from-white via-gray-50 to-gray-100 p-6 rounded-xl shadow-md border border-gray-100">
       <h2 className="text-xl font-bold  mb-6 text-primary">
         Contest Distribution by Category
       </h2>
@@ -62,7 +62,7 @@ const PieCharts = () => {
               cx: 150, // Center x-axis
             },
           ]}
-          height={250}
+          height={265}
           slotProps={{
             legend: { hidden: true }, // Amra custom legend niche banabo
           }}

@@ -6,6 +6,7 @@ import PieCharts from "../../../components/PieCharts/PieCharts";
 
 import BarCharts from "../../../components/BarCharts/BarCharts";
 import UsersTable from "./usersTable";
+import StatsBar from "../../../components/StatsBar/StatsBar";
 
 const LeaderBoard = () => {
   // const { role } = useRole();
@@ -19,11 +20,32 @@ const LeaderBoard = () => {
     },
   });
 
+  const { data: totalDataCounts = {} } = useQuery({
+    queryKey: ["total-data-counts"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/estimated-counts");
+      return res.data;
+    },
+  });
+
+  const totals = [
+    { id: 1, label: "Total Users", value: totalDataCounts?.users ?? 0 },
+    { id: 2, label: "Total creators", value: totalDataCounts?.creators ?? 0 },
+    { id: 3, label: "Total contests", value: totalDataCounts?.contests ?? 0 },
+    {
+      id: 4,
+      label: "Total participants",
+      value: totalDataCounts?.participants ?? 0,
+    },
+  ];
+
+  console.log(totals);
   const usersData = users.slice(0, 6);
   return (
     <>
       <div className="p-10">
-        <div className="flex gap-5 ">
+        <StatsBar totals={totals} />
+        <div className="flex flex-col lg:flex-row gap-5 ">
           {/* username and win contest count latest */}
           <div className="flex-1 ">
             <BarCharts />

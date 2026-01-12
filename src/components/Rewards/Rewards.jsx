@@ -67,7 +67,7 @@ const Rewards = () => {
           <h2
             className={`${
               darkMode && "text-white"
-            } text-5xl font-extrabold text-slate-900 mb-6 tracking-tight`}
+            } text-4xl font-extrabold text-slate-900 mb-6 tracking-tight`}
           >
             Beyond the{" "}
             <span className={`${darkMode && "text-white"} text-blue-600`}>

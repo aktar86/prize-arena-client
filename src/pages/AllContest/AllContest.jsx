@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
+import { Search } from "lucide-react";
 import useAxios from "../../hooks/useAxios";
 import ContestCard from "./ContestCard";
 import useAuth from "../../hooks/useAuth";
@@ -8,17 +10,35 @@ import Loder from "../../components/Loder/Loder";
 const AllContest = () => {
   const { darkMode } = useAuth();
   const axiosSecure = useAxios();
+  const [searchParams] = useSearchParams();
 
   const [activeTab, setActiveTab] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1); // page starts from 1
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchText, setSearchText] = useState("");
   const itemsPerPage = 10;
 
+  // Get search parameter from URL
+  useEffect(() => {
+    const urlSearch = searchParams.get("search");
+    if (urlSearch) {
+      setSearchText(urlSearch);
+    }
+  }, [searchParams]);
+
   const { isLoading, data = {} } = useQuery({
-    queryKey: ["approved-contest", currentPage],
+    queryKey: ["approved-contest", currentPage, activeTab, searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/contests?status=Confirmed&page=${currentPage}&limit=${itemsPerPage}`
-      );
+      let url = `/contests?status=Confirmed&page=${currentPage}&limit=${itemsPerPage}`;
+      
+      if (searchText) {
+        url += `&searchText=${encodeURIComponent(searchText)}`;
+      }
+      
+      if (activeTab !== "All") {
+        url += `&category=${encodeURIComponent(activeTab)}`;
+      }
+      
+      const res = await axiosSecure.get(url);
       return res.data;
     },
     keepPreviousData: true,
@@ -36,17 +56,38 @@ const AllContest = () => {
     "Landing Page UI",
   ];
 
-  const filteredContests =
-    activeTab === "All"
-      ? contests
-      : contests.filter((contest) => contest.contestCategory === activeTab);
+  const filteredContests = contests; // Remove client-side filtering since we're doing it server-side
 
   return (
     <div
-      className={`w-full max-w-[1440px] mx-auto ${
+      className={`w-full max-w-[1440px] mx-auto p-4 ${
         darkMode ? "bg-black text-white" : "bg-white"
       }`}
     >
+      {/* Search Bar */}
+      <div className="mb-6">
+        <div className={`max-w-md mx-auto rounded-full border-2 ${
+          darkMode ? "border-gray-600 bg-gray-800" : "border-gray-300 bg-white"
+        }`}>
+          <div className="flex items-center">
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search contests..."
+              className={`px-4 py-2 rounded-l-full outline-none flex-1 ${
+                darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+              }`}
+            />
+            <button
+              onClick={() => setCurrentPage(1)}
+              className="bg-gradient-to-r from-[#fc466b] to-[#3f5efb] text-white px-4 py-2 rounded-r-full hover:shadow-lg transition-all duration-300"
+            >
+              <Search size={20} />
+            </button>
+          </div>
+        </div>
+      </div>
       {/* Tabs */}
       <div className="tabs tabs-boxed mb-6">
         {tabs.map((tab) => (

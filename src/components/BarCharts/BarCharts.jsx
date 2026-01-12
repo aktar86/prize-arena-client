@@ -25,7 +25,7 @@ const BarCharts = () => {
   }));
 
   return (
-    <div className="w-full bg-gray-300 p-4  rounded-lg shadow-sm">
+    <div className="w-full bg-linear-to-br from-gray-100 to-white p-6 rounded-2xl shadow-md">
       <h2 className="text-xl font-bold text-primary mb-4">
         Top Winners Performance
       </h2>
